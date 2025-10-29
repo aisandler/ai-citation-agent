@@ -53,6 +53,7 @@ See [jasper-citation-quality-scorecard.md](jasper-citation-quality-scorecard.md)
 3. **`perplexity-citation-checker`** - Queries Perplexity API with structured taxonomy
 4. **`chatgpt-citation-checker`** - Browser automation for ChatGPT citation tracking
 5. **`gemini-citation-checker`** - Browser automation for Gemini citation tracking
+6. **`airtable-writer`** - Persists audit data to Airtable across 5 related tables
 
 ### Skills
 
@@ -83,10 +84,12 @@ ai-citation-agent/
 │   │   ├── citation-quality-analyzer.md
 │   │   ├── perplexity-citation-checker.md
 │   │   ├── chatgpt-citation-checker.md
-│   │   └── gemini-citation-checker.md
+│   │   ├── gemini-citation-checker.md
+│   │   └── airtable-writer.md       # Data persistence agent
 │   ├── commands/
 │   │   └── agents/
-│   │       └── audit-citations.md   # Main orchestrator
+│   │       ├── audit-citations.md   # Main orchestrator
+│   │       └── setup-airtable.md    # Airtable schema setup
 │   └── skills/
 │       ├── playwright-cleanup/      # Browser process management
 │       │   ├── SKILL.md
@@ -96,6 +99,11 @@ ai-citation-agent/
 │   ├── frameworks/                  # AI SEO framework documentation
 │   ├── queries/                     # Query taxonomy
 │   └── standards/                   # Output quality standards
+├── scripts/
+│   ├── setup-airtable-schema.js     # Create Airtable tables
+│   ├── test-airtable-connection.js  # Validate Airtable credentials
+│   └── delete-airtable-tables.js    # Clean up Airtable (with confirmation)
+├── .env.local                       # Airtable credentials (gitignored)
 └── skills/
     └── format-citations-report.md   # Report formatting utilities
 ```
@@ -105,6 +113,8 @@ ai-citation-agent/
 - **Claude Code** - This project is designed to run in Claude Code environment
 - **Playwright MCP** - For browser automation (ChatGPT, Gemini agents)
 - **Perplexity MCP** - For Perplexity API access
+- **Airtable MCP** - For data persistence and tracking
+- **Node.js** - For Airtable schema setup scripts
 - **GitHub CLI** (optional) - For repository management
 
 ## 📖 Methodology Details
@@ -163,6 +173,137 @@ Combines all data into:
 - Long-term vision (6-12 months)
 
 **Output:** Actionable roadmap with specific metrics and timelines
+
+## 📊 Airtable Integration
+
+### Overview
+
+After each audit completes, you can export results to Airtable for:
+- **Persistence** - Historical tracking of audits over time
+- **Trend Analysis** - See how trust node coverage and citation quality evolve
+- **Dashboard Visualization** - Build custom views for executives, marketing teams, SEO analysts
+- **Team Collaboration** - Assign priorities, track status, add notes
+
+### Schema
+
+The integration uses 5 related tables (70 fields total):
+
+#### 1. Audit_Runs (20 fields)
+Main audit execution records with composite scores, platform rankings, and executive summary.
+
+**Key fields:** `brand_name`, `category`, `overall_score`, `trust_node_coverage`, `citation_quality`, `ai_citation_rate`, `perplexity_rank`, `chatgpt_rank`, `gemini_rank`, `top_priority_1`, `top_priority_2`, `top_priority_3`
+
+#### 2. Trust_Nodes (8 fields)
+Individual trust node presence tracking across 29 nodes in 6 categories.
+
+**Key fields:** `category`, `node_name`, `present`, `quality_score`, `url`, `last_updated`
+
+#### 3. Citations (15 fields)
+Citation quality scores across 5 dimensions per source.
+
+**Key fields:** `source_url`, `source_domain`, `authority_score`, `data_structure_score`, `brand_alignment_score`, `freshness_score`, `cross_link_score`, `overall_quality`, `cited_by_perplexity`, `cited_by_chatgpt`, `cited_by_gemini`
+
+#### 4. LLM_Responses (15 fields)
+Platform query results with rankings and competitive intelligence.
+
+**Key fields:** `platform`, `query_type`, `query_text`, `brand_cited`, `brand_rank`, `citations_found`, `competitor_1`, `competitor_1_rank`, `competitor_2`, `competitor_2_rank`
+
+#### 5. Priorities (12 fields)
+Action items with impact/effort assessment and status tracking.
+
+**Key fields:** `priority_level`, `title`, `description`, `impact`, `effort`, `timeline`, `status`, `assigned_to`, `due_date`
+
+**Relationships:** All tables link to `Audit_Runs` via `audit` field (many-to-one).
+
+### Setup
+
+#### 1. Create Airtable Base
+
+The schema is already defined in `.env.local`:
+```
+AIRTABLE_BASE_ID=appXQsoTkWGPqwaOx
+AIRTABLE_API_KEY=patWZs...
+```
+
+To create/recreate the schema:
+
+```bash
+node scripts/setup-airtable-schema.js
+```
+
+This creates all 5 tables with proper field types and relationships.
+
+#### 2. Test Connection
+
+Verify your Airtable credentials:
+
+```bash
+node scripts/test-airtable-connection.js
+```
+
+### Usage
+
+#### During Audit
+
+After the audit completes, the orchestrator will prompt:
+
+```
+Would you like to export this audit to Airtable now?
+```
+
+**If you answer YES:**
+1. Orchestrator collects structured JSON from all agent responses
+2. Constructs complete payload with audit metadata
+3. Invokes `@airtable-writer` agent
+4. Writer creates records across all 5 tables
+5. Returns summary with record counts and Airtable view URL
+
+**If you answer NO:**
+- Audit data remains in the session
+- You can manually invoke `@airtable-writer` later with saved data
+
+#### Manual Write
+
+If you want to re-export or update an existing audit:
+
+```bash
+@airtable-writer
+```
+
+Provide the complete JSON payload from the audit session.
+
+### Data Flow
+
+```
+Audit Agents → JSON Output → Orchestrator Collection → User Approval → Airtable Writer → 5 Tables
+```
+
+Each specialized agent returns **hybrid output:**
+- **Markdown** - Human-readable report for user review
+- **JSON** - Structured data block for Airtable export
+
+The orchestrator:
+1. Collects JSON from Steps 1-4
+2. Calculates composite metrics (overall_score, ai_citation_rate, etc.)
+3. Extracts top 3 priorities from recommendations
+4. Constructs complete payload matching Airtable schema
+5. Writes atomically (all tables or none)
+
+### Partial Data Handling
+
+If any audit step fails (e.g., ChatGPT timeout):
+- Writer creates records with whatever data exists
+- Sets `status` field to "In Progress"
+- Flags missing sections in `notes` fields
+- Example: "Partial audit - ChatGPT step timed out (browser lock). Re-run to complete."
+
+### Helper Scripts
+
+**`scripts/setup-airtable-schema.js`** - Creates all 5 tables with 70 fields
+
+**`scripts/test-airtable-connection.js`** - Validates API key and lists tables
+
+**`scripts/delete-airtable-tables.js`** - Safely deletes all tables (requires "DELETE" confirmation)
 
 ## 🐛 Known Issues & Solutions
 

@@ -232,6 +232,227 @@ Source Discovery complete. Trust node map generated.
 
 ---
 
+## STRUCTURED DATA (for Airtable export)
+
+After generating the full markdown report above, append the following JSON data block:
+
+```json
+{
+  "step": "source_discovery",
+  "data": {
+    "trust_nodes": [
+      {
+        "category": "Knowledge Graph",
+        "node_name": "Wikipedia",
+        "present": true,
+        "quality_score": 8.5,
+        "last_updated": "2024-01-15",
+        "url": "https://en.wikipedia.org/wiki/BrandName",
+        "notes": "Good article status, well-referenced"
+      },
+      {
+        "category": "Knowledge Graph",
+        "node_name": "Wikidata",
+        "present": true,
+        "quality_score": 7.0,
+        "last_updated": "2024-02-10",
+        "url": "https://www.wikidata.org/wiki/Q12345",
+        "notes": "15 properties populated, linked to Crunchbase"
+      },
+      {
+        "category": "Knowledge Graph",
+        "node_name": "Google Knowledge Panel",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No knowledge panel found - may need Wikipedia article first"
+      },
+      {
+        "category": "Review Platform",
+        "node_name": "G2",
+        "present": true,
+        "quality_score": 9.0,
+        "last_updated": "2024-10-20",
+        "url": "https://www.g2.com/products/brand-name",
+        "notes": "150 reviews, 4.5/5 rating, claimed profile"
+      },
+      {
+        "category": "Review Platform",
+        "node_name": "Capterra",
+        "present": true,
+        "quality_score": 8.0,
+        "last_updated": "2024-09-15",
+        "url": "https://www.capterra.com/p/brand-name",
+        "notes": "80 reviews, 4.3/5 rating"
+      },
+      {
+        "category": "Review Platform",
+        "node_name": "Trustpilot",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No profile found"
+      },
+      {
+        "category": "Review Platform",
+        "node_name": "Software Advice",
+        "present": true,
+        "quality_score": 7.5,
+        "last_updated": "2024-08-10",
+        "url": "https://www.softwareadvice.com/brand-name",
+        "notes": "50 reviews, 4.2/5 rating"
+      },
+      {
+        "category": "Review Platform",
+        "node_name": "GetApp",
+        "present": true,
+        "quality_score": 7.0,
+        "last_updated": "2024-07-20",
+        "url": "https://www.getapp.com/brand-name",
+        "notes": "30 reviews, 4.1/5 rating"
+      },
+      {
+        "category": "Directory",
+        "node_name": "Crunchbase",
+        "present": true,
+        "quality_score": 9.5,
+        "last_updated": "2024-10-01",
+        "url": "https://www.crunchbase.com/organization/brand-name",
+        "notes": "Complete profile, funding info current, 15 news mentions"
+      },
+      {
+        "category": "Directory",
+        "node_name": "Product Hunt",
+        "present": true,
+        "quality_score": 6.0,
+        "last_updated": "2023-05-15",
+        "url": "https://www.producthunt.com/products/brand-name",
+        "notes": "Launched 2 years ago, not updated recently"
+      },
+      {
+        "category": "Directory",
+        "node_name": "AngelList",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No profile found"
+      },
+      {
+        "category": "Directory",
+        "node_name": "Built With",
+        "present": true,
+        "quality_score": 5.0,
+        "last_updated": "2024-06-01",
+        "url": "https://builtwith.com/brand-name",
+        "notes": "Basic listing, technology stack tracked"
+      },
+      {
+        "category": "Company Profile",
+        "node_name": "LinkedIn Company",
+        "present": true,
+        "quality_score": 8.5,
+        "last_updated": "2024-10-25",
+        "url": "https://www.linkedin.com/company/brand-name",
+        "notes": "5,000 followers, posts 3x/week, 200 employees listed"
+      },
+      {
+        "category": "Company Profile",
+        "node_name": "Bloomberg",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No Bloomberg terminal coverage (likely need IPO/larger size)"
+      },
+      {
+        "category": "News & PR",
+        "node_name": "Google News",
+        "present": true,
+        "quality_score": 7.5,
+        "last_updated": "2024-10-15",
+        "url": null,
+        "notes": "25 articles in last 6 months, mostly tier 2-3 publications"
+      },
+      {
+        "category": "Seed Site",
+        "node_name": "TechCrunch",
+        "present": true,
+        "quality_score": 8.0,
+        "last_updated": "2024-08-20",
+        "url": "https://techcrunch.com/brand-name-article",
+        "notes": "3 mentions, most recent: funding announcement"
+      },
+      {
+        "category": "Seed Site",
+        "node_name": "VentureBeat",
+        "present": true,
+        "quality_score": 6.5,
+        "last_updated": "2024-03-10",
+        "url": "https://venturebeat.com/brand-name-article",
+        "notes": "2 mentions, somewhat dated"
+      },
+      {
+        "category": "Seed Site",
+        "node_name": "Forbes",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No coverage found"
+      },
+      {
+        "category": "Seed Site",
+        "node_name": "Inc.com",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No coverage found"
+      },
+      {
+        "category": "Seed Site",
+        "node_name": "Fast Company",
+        "present": false,
+        "quality_score": null,
+        "last_updated": null,
+        "url": null,
+        "notes": "No coverage found"
+      }
+    ],
+    "coverage_summary": {
+      "total_present": 15,
+      "total_possible": 20,
+      "percentage": 0.75,
+      "by_category": {
+        "knowledge_graph": 2,
+        "review_platforms": 4,
+        "directories": 3,
+        "company_profiles": 1,
+        "news_pr": 1,
+        "seed_sites": 2
+      }
+    }
+  }
+}
+```
+
+**IMPORTANT:** Replace the example data above with actual findings from your research. Ensure:
+
+1. **All 20+ trust nodes** are represented (add more as needed per category)
+2. **present** field is accurate boolean (true/false)
+3. **quality_score** is 0-10 (null if absent)
+4. **last_updated** is ISO date format (YYYY-MM-DD) or null
+5. **url** is full URL or null
+6. **notes** contains specific details found
+7. **coverage_summary** accurately counts present nodes
+
+This structured data will be parsed by the orchestrator and written to Airtable for persistence and trend tracking.
+
+---
+
 ## Use Web Search Extensively
 
 Use web_search tool to check each source:

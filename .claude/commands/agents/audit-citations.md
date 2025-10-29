@@ -633,12 +633,120 @@ Strategy:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Would you like to:
+## AUDIT DATA EXPORT
+
+The audit has generated structured data ready for Airtable export:
+- Trust Nodes: [X] nodes tracked across 6 categories
+- Citations: [X] citations scored across 5 dimensions
+- LLM Responses: [X] query results from 3 platforms
+- Priorities: [X] action items identified
+
+**Export to Airtable for:**
+- Persistence and historical tracking
+- Trend analysis over time
+- Dashboard visualization
+- Team collaboration on priorities
+
+Would you like to export this audit to Airtable now?
+```
+
+**If user says YES:**
+
+1. Parse JSON blocks from all agent responses in conversation history
+2. Construct complete payload combining:
+   - audit_run metadata (brand, category, date, scores)
+   - trust_nodes array from Step 1
+   - citations array from Step 2
+   - llm_responses arrays from Step 3a/3b/3c (combined)
+   - priorities array extracted from Step 4 recommendations
+3. Invoke `@airtable-writer` agent with complete JSON payload
+
+**If user says NO:**
+
+Continue with other options:
 - Deep-dive into any specific step?
 - Get implementation guides for top priorities?
-- Export this report to Airtable for tracking?
 - Schedule follow-up audit?
+
+---
+
+## JSON Data Collection Logic
+
+**After each agent completes, extract JSON:**
+
+Look for code blocks with pattern:
+```json
+{
+  "step": "[step_name]",
+  "data": { ... }
+}
 ```
+
+**Store in internal state:**
+- Step 1 (source-discovery): `trust_nodes` array + `coverage_summary`
+- Step 2 (citation-quality-analyzer): `citations` array + `quality_summary`
+- Step 3a (perplexity-citation-checker): `llm_responses` array (Perplexity)
+- Step 3b (chatgpt-citation-checker): `llm_responses` array (ChatGPT)
+- Step 3c (gemini-citation-checker): `llm_responses` array (Gemini)
+
+**After Step 4 synthesis, construct complete payload:**
+
+```json
+{
+  "audit_run": {
+    "brand_name": "[from user input]",
+    "category": "[from user input]",
+    "audit_date": "[today's date YYYY-MM-DD]",
+    "overall_score": [calculated composite 0-10],
+    "trust_node_coverage": [count from Step 1],
+    "trust_node_percentage": [percentage from Step 1],
+    "citation_quality": [average from Step 2],
+    "ai_citation_rate": [% of platforms that cited brand from Step 3],
+    "perplexity_rank": [best rank from Step 3a or null],
+    "chatgpt_rank": [best rank from Step 3b or null],
+    "gemini_rank": [best rank from Step 3c or null],
+    "perplexity_cited": [true/false from Step 3a],
+    "chatgpt_cited": [true/false from Step 3b],
+    "gemini_cited": [true/false from Step 3c],
+    "status": "Complete" | "In Progress" | "Failed",
+    "executive_summary": "[Step 4 executive summary text]",
+    "top_priority_1": "[first priority from Step 4]",
+    "top_priority_2": "[second priority from Step 4]",
+    "top_priority_3": "[third priority from Step 4]",
+    "next_audit_date": "[today + 60 days]"
+  },
+  "trust_nodes": [... from Step 1 ...],
+  "citations": [... from Step 2 ...],
+  "llm_responses": [
+    ... from Step 3a ...,
+    ... from Step 3b ...,
+    ... from Step 3c ...
+  ],
+  "priorities": [
+    {
+      "priority_level": "Immediate",
+      "title": "[extracted from top_priority_1]",
+      "description": "[full priority text]",
+      "impact": "[High/Medium/Low based on analysis]",
+      "effort": "[High/Medium/Low estimated]",
+      "timeline": "[suggested timeline]",
+      "status": "Not Started",
+      "assigned_to": null,
+      "due_date": null,
+      "completed_date": null,
+      "notes": ""
+    },
+    ... top_priority_2 and top_priority_3 ...
+  ]
+}
+```
+
+**Handle partial data:**
+- If Step 1 failed: empty trust_nodes array, note in audit_run.notes
+- If Step 2 failed: empty citations array, note in audit_run.notes
+- If Step 3a/3b/3c failed: empty llm_responses for that platform, mark platform_cited as false
+- Set status to "In Progress" if any critical step failed
+- Include error details in executive_summary
 
 ---
 

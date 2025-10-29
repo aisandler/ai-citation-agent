@@ -327,4 +327,83 @@ If browser issues:
 
 ---
 
+## STRUCTURED DATA (for Airtable export)
+
+After generating the full markdown report above, append the following JSON data block:
+
+```json
+{
+  "step": "gemini_llm_check",
+  "data": {
+    "llm_responses": [
+      {
+        "platform": "Gemini",
+        "query_type": "Evaluative",
+        "query_text": "What are the top AI writing tools in 2025?",
+        "brand_cited": true,
+        "brand_rank": 5,
+        "brand_context": "Listed as #5 in overview with note about enterprise features",
+        "citations_found": 7,
+        "competitor_1": "Jasper",
+        "competitor_1_rank": 1,
+        "competitor_2": "Copy.ai",
+        "competitor_2_rank": 2,
+        "competitor_3": "Writesonic",
+        "competitor_3_rank": 3,
+        "response_summary": "Ranked 5th in evaluative query. Superscript citations to G2, Capterra, VentureBeat. Knowledge graph gap may impact ranking."
+      },
+      {
+        "platform": "Gemini",
+        "query_type": "Comparative",
+        "query_text": "Best AI writing tools for marketing teams vs. individual creators",
+        "brand_cited": true,
+        "brand_rank": 3,
+        "brand_context": "Recommended for teams, noted collaboration features",
+        "citations_found": 5,
+        "competitor_1": "Jasper",
+        "competitor_1_rank": 1,
+        "competitor_2": "Copy.ai",
+        "competitor_2_rank": 2,
+        "competitor_3": "Writesonic",
+        "competitor_3_rank": 4,
+        "response_summary": "Better positioning in comparative query. LinkedIn company page and review platforms drove differentiation."
+      },
+      {
+        "platform": "Gemini",
+        "query_type": "Brand-Specific",
+        "query_text": "[Brand Name] reviews and credentials",
+        "brand_cited": true,
+        "brand_rank": 1,
+        "brand_context": "Primary subject with detailed feature breakdown and pricing",
+        "citations_found": 6,
+        "competitor_1": null,
+        "competitor_1_rank": null,
+        "competitor_2": null,
+        "competitor_2_rank": null,
+        "competitor_3": null,
+        "competitor_3_rank": null,
+        "response_summary": "Brand-specific query strong. Citations: G2 (4.5/5), Capterra (4.3/5), official site, Crunchbase, Product Hunt, LinkedIn."
+      }
+    ]
+  }
+}
+```
+
+**IMPORTANT:** Replace the example data above with actual Gemini query results. Ensure:
+
+1. **One llm_response object per query** tested (typically 3: Evaluative, Comparative, Brand-Specific)
+2. **platform** is always "Gemini"
+3. **query_type** matches taxonomy
+4. **query_text** is exact query submitted
+5. **brand_cited** is true if brand mentioned, false if absent
+6. **brand_rank** is numeric position or null
+7. **brand_context** describes presentation
+8. **citations_found** is total superscript citations counted
+9. **competitor_X** and **competitor_X_rank** capture top 3 competitors
+10. **response_summary** explains findings and citation patterns
+
+This structured data will be parsed by the orchestrator and written to Airtable for persistence and trend tracking.
+
+---
+
 *You systematically evaluate Gemini responses using Playwright automation, tracking exact citation influence and competitive positioning.*

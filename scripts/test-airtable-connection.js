@@ -1,58 +1,89 @@
+#!/usr/bin/env node
+
 /**
  * Test Airtable Connection
- *
- * Verifies that the Airtable API credentials are valid
- * and the connection is working properly.
+ * Validates API key and base access before running schema setup
  */
 
-import airtableClient from '../lib/airtable-client.js';
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
 
-async function testConnection() {
-  console.log('🔗 Testing Airtable connection...\n');
+// Load environment variables
+const envPath = path.join(__dirname, '..', '.env.local');
+const envContent = fs.readFileSync(envPath, 'utf8');
+const envVars = {};
 
-  try {
-    // Test basic connection
-    const connectionResult = await airtableClient.testConnection();
-
-    if (connectionResult.success) {
-      console.log('✅ Connection successful!');
-      console.log(`   Base ID: ${connectionResult.baseId}`);
-      console.log(`   Tables found: ${connectionResult.tablesFound}`);
-
-      // Test creating a sample record (you'll need to specify a table name)
-      console.log('\n📝 Testing record creation...');
-      console.log('   Note: To test record creation, you need to specify a table name in your Airtable base.');
-      console.log('   Example usage:');
-      console.log('   const result = await airtableClient.createRecord("YourTableName", { "Field Name": "Value" });');
-
-      console.log('\n✨ Airtable client is ready to use!');
-      console.log('\nAvailable methods:');
-      console.log('  - airtableClient.createRecord(tableName, fields)');
-      console.log('  - airtableClient.getRecords(tableName, options)');
-      console.log('  - airtableClient.updateRecord(tableName, recordId, fields)');
-      console.log('  - airtableClient.deleteRecord(tableName, recordId)');
-      console.log('  - airtableClient.submitAuditReport(tableName, auditData)');
-
-      console.log('\n📚 Next steps:');
-      console.log('  1. Create a table in your Airtable base (e.g., "AI Citation Audits")');
-      console.log('  2. Add fields like: Brand Name, Category, Audit Date, Overall Score, etc.');
-      console.log('  3. Use airtableClient.submitAuditReport() to send audit results');
-
-    } else {
-      console.log('❌ Connection failed!');
-      console.log(`   Error: ${connectionResult.error}`);
-      console.log('\n🔍 Troubleshooting:');
-      console.log('  1. Check that AIRTABLE_API_KEY is correct in .env.local');
-      console.log('  2. Check that AIRTABLE_BASE_ID is correct in .env.local');
-      console.log('  3. Verify your Airtable API key has access to the base');
-      console.log('  4. Ensure the base exists in your Airtable account');
-    }
-
-  } catch (error) {
-    console.log('❌ Unexpected error:');
-    console.error(error);
+envContent.split('\n').forEach(line => {
+  const match = line.match(/^([^=]+)=(.*)$/);
+  if (match) {
+    envVars[match[1]] = match[2];
   }
+});
+
+const AIRTABLE_API_KEY = envVars.AIRTABLE_API_KEY;
+const BASE_ID = envVars.AIRTABLE_BASE_ID;
+
+console.log('🔍 Testing Airtable Connection\n');
+
+// Validate credentials exist
+if (!AIRTABLE_API_KEY) {
+  console.error('❌ AIRTABLE_API_KEY not found in .env.local');
+  process.exit(1);
 }
 
-// Run the test
-testConnection();
+if (!BASE_ID) {
+  console.error('❌ AIRTABLE_BASE_ID not found in .env.local');
+  process.exit(1);
+}
+
+console.log('✓ Credentials found in .env.local');
+console.log(`  API Key: ${AIRTABLE_API_KEY.substring(0, 10)}...${AIRTABLE_API_KEY.substring(AIRTABLE_API_KEY.length - 10)}`);
+console.log(`  Base ID: ${BASE_ID}\n`);
+
+// Test API connection
+const options = {
+  hostname: 'api.airtable.com',
+  port: 443,
+  path: `/v0/meta/bases/${BASE_ID}/tables`,
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+    'Content-Type': 'application/json'
+  }
+};
+
+console.log('📡 Testing API connection...');
+
+const req = https.request(options, (res) => {
+  let body = '';
+  res.on('data', chunk => body += chunk);
+  res.on('end', () => {
+    if (res.statusCode === 200) {
+      const data = JSON.parse(body);
+      console.log('✅ Connection successful!\n');
+      console.log(`Current tables in base (${data.tables.length}):`);
+
+      if (data.tables.length === 0) {
+        console.log('  (No tables yet - ready for schema setup)');
+      } else {
+        data.tables.forEach((table, idx) => {
+          console.log(`  ${idx + 1}. ${table.name} (${table.fields?.length || 0} fields)`);
+        });
+      }
+
+      console.log('\n✓ Ready to run setup-airtable-schema.js');
+    } else {
+      console.error(`❌ API Error ${res.statusCode}:`);
+      console.error(body);
+      process.exit(1);
+    }
+  });
+});
+
+req.on('error', (error) => {
+  console.error('❌ Connection failed:', error.message);
+  process.exit(1);
+});
+
+req.end();

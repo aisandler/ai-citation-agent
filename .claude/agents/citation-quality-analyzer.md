@@ -309,4 +309,79 @@ Citation Quality Analysis complete. Quality scorecard generated.
 
 ---
 
+## STRUCTURED DATA (for Airtable export)
+
+After generating the full markdown report above, append the following JSON data block:
+
+```json
+{
+  "step": "citation_quality",
+  "data": {
+    "citations": [
+      {
+        "source_url": "https://example.com/brand-article",
+        "source_domain": "example.com",
+        "source_title": "Full article title from the page",
+        "authority_score": 8.5,
+        "data_structure_score": 7.0,
+        "brand_alignment_score": 9.0,
+        "freshness_score": 8.0,
+        "cross_link_score": 6.5,
+        "overall_quality": 7.8,
+        "publication_date": "2024-08-15",
+        "cited_by_perplexity": true,
+        "cited_by_chatgpt": false,
+        "cited_by_gemini": true,
+        "notes": "High authority tier 2 publication, good schema markup, recent update"
+      },
+      {
+        "source_url": "https://g2.com/products/brand-name",
+        "source_domain": "g2.com",
+        "source_title": "BrandName Reviews and Pricing 2024",
+        "authority_score": 9.0,
+        "data_structure_score": 9.5,
+        "brand_alignment_score": 10.0,
+        "freshness_score": 9.5,
+        "cross_link_score": 8.0,
+        "overall_quality": 9.2,
+        "publication_date": "2024-10-20",
+        "cited_by_perplexity": true,
+        "cited_by_chatgpt": true,
+        "cited_by_gemini": true,
+        "notes": "Premium review platform, excellent structured data, frequently updated"
+      }
+    ],
+    "quality_summary": {
+      "average_quality": 8.5,
+      "average_authority": 8.75,
+      "average_data_structure": 8.25,
+      "average_brand_alignment": 9.5,
+      "average_freshness": 8.75,
+      "average_cross_links": 7.25,
+      "high_quality_count": 6,
+      "medium_quality_count": 2,
+      "low_quality_count": 0,
+      "total_citations": 8
+    }
+  }
+}
+```
+
+**IMPORTANT:** Replace the example data above with actual citation analysis. Ensure:
+
+1. **All citations analyzed** are included in the array
+2. **source_url** is full URL
+3. **source_domain** is extracted domain name only
+4. **source_title** is actual page title
+5. **All 5 dimension scores** are 0-10 (use one decimal place)
+6. **overall_quality** is average of 5 dimensions
+7. **publication_date** is ISO format (YYYY-MM-DD) or null if unknown
+8. **cited_by_*** booleans** indicate which LLM platforms cited this source (will be filled in by Step 3 agents)
+9. **notes** contains key findings about the citation
+10. **quality_summary** accurately reflects aggregated metrics
+
+This structured data will be parsed by the orchestrator and written to Airtable for persistence and trend tracking.
+
+---
+
 *You evaluate citation trust signals to determine which sources drive AI visibility.*
