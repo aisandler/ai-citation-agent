@@ -1,0 +1,421 @@
+{
+  "audit_metadata": {
+    "brand": "Mad Mutz",
+    "category": "CPG/FMCG - Frozen Snack Foods (Gourmet Mozzarella Sticks)",
+    "audit_date": "2025-10-28",
+    "methodology": "4-Step AI Visibility Framework (aiclicks.io)",
+    "overall_score": 2.3,
+    "audit_duration_minutes": 11
+  },
+  "executive_summary": {
+    "ai_visibility_score": 2.3,
+    "ai_citation_rate": 0,
+    "brand_specific_query_success_rate": 100,
+    "category_query_success_rate": 0,
+    "key_findings": [
+      "Zero AI visibility in category queries - not cited by any of 3 major LLM platforms",
+      "Strong momentum visibility (Shark Tank + regional press) but no foundational visibility",
+      "Indexed but invisible phenomenon - Perplexity found website but chose not to cite it"
+    ],
+    "bottom_line": "Despite recent business momentum (Shark Tank deal, regional press coverage), Mad Mutz is functionally invisible to AI systems making product recommendations. The brand lacks foundational trust nodes and third-party validation that LLMs require."
+  },
+  "step1_trust_nodes": {
+    "overall_coverage": {
+      "traditional_score": "8/29",
+      "traditional_percentage": 27.6,
+      "cpg_adjusted_score": "8/15",
+      "cpg_adjusted_percentage": 53.3
+    },
+    "categories": {
+      "knowledge_graphs": {
+        "score": "0/3",
+        "status": "critical_gap",
+        "nodes": {
+          "wikipedia": false,
+          "wikidata": false,
+          "google_knowledge_panel": false
+        }
+      },
+      "review_platforms": {
+        "score": "0/5",
+        "status": "not_applicable_b2b_software",
+        "notes": "Mad Mutz is CPG, not B2B software. Relevant platforms would be Amazon reviews, Google Reviews, Yelp"
+      },
+      "directories": {
+        "score": "0/4",
+        "status": "not_applicable_tech_startups",
+        "notes": "Tech directories not relevant for CPG. Need food industry directories instead"
+      },
+      "company_profiles": {
+        "score": "0/2",
+        "status": "critical_gap",
+        "nodes": {
+          "linkedin_company_page": false,
+          "linkedin_founder_profile": true,
+          "bloomberg_pitchbook": false
+        }
+      },
+      "news_pr": {
+        "score": "8/10",
+        "status": "strong",
+        "articles_found": 15,
+        "top_publications": [
+          "The Philadelphia Inquirer (2 articles)",
+          "NJ Biz",
+          "Press of Atlantic City (multiple)",
+          "Shore Local Newsmagazine",
+          "PhillyVoice",
+          "6ABC Philadelphia"
+        ],
+        "sentiment": "overwhelmingly_positive",
+        "shark_tank_deal": "$150,000 for 20% equity with Lori Greiner"
+      },
+      "seed_sites": {
+        "score": "0/5",
+        "status": "critical_gap",
+        "notes": "Missing coverage from food authority sites: Food & Wine, Bon Appétit, Serious Eats, Food Network, Food52"
+      }
+    },
+    "critical_gaps": [
+      {
+        "gap": "No Wikipedia article",
+        "impact": "Blocks knowledge graph presence in all 3 LLMs",
+        "priority": "high"
+      },
+      {
+        "gap": "No Wikidata entity",
+        "impact": "Missing structured data foundation for entity recognition",
+        "priority": "immediate"
+      },
+      {
+        "gap": "No consumer review ecosystem",
+        "impact": "Only 2 Facebook reviews; no Google/Amazon/Yelp validation",
+        "priority": "high"
+      },
+      {
+        "gap": "No LinkedIn Company Page",
+        "impact": "Missing professional B2B channel",
+        "priority": "immediate"
+      },
+      {
+        "gap": "Zero food industry authority coverage",
+        "impact": "Missing from sites LLMs cite for culinary queries",
+        "priority": "high"
+      }
+    ]
+  },
+  "step2_citation_quality": {
+    "average_score": 6.9,
+    "quality_distribution": {
+      "high_quality_8_to_10": {
+        "count": 1,
+        "percentage": 12.5,
+        "examples": ["Philadelphia Inquirer"]
+      },
+      "medium_quality_5_to_7": {
+        "count": 7,
+        "percentage": 87.5,
+        "examples": ["NJ Biz", "Press of Atlantic City", "PhillyVoice", "6ABC"]
+      },
+      "low_quality_0_to_4": {
+        "count": 0,
+        "percentage": 0
+      }
+    },
+    "dimension_scores": {
+      "authority": {
+        "score": 6.3,
+        "assessment": "Regional news, not national food authority"
+      },
+      "data_structure": {
+        "score": 4.9,
+        "assessment": "Critical - Minimal schema markup",
+        "status": "weakest_dimension"
+      },
+      "brand_alignment": {
+        "score": 9.0,
+        "assessment": "Strong - Positive, accurate coverage"
+      },
+      "freshness": {
+        "score": 9.8,
+        "assessment": "Strong - All 2024-2025 content",
+        "status": "strongest_dimension"
+      },
+      "cross_link_signals": {
+        "score": 5.4,
+        "assessment": "Moderate - Some Shark Tank connections"
+      }
+    },
+    "citations_analyzed": [
+      {
+        "url": "https://www.inquirer.com/life/mad-mutz-mozzarella-sticks-shark-tank-atlantic-city-20250421.html",
+        "source": "Philadelphia Inquirer",
+        "date": "2025-04-21",
+        "type": "editorial_feature",
+        "authority": 8,
+        "data_structure": 6,
+        "brand_alignment": 9,
+        "freshness": 10,
+        "cross_links": 7,
+        "total": 8.0
+      },
+      {
+        "url": "https://www.inquirer.com/food/restaurants/mad-mutz-mozzarella-sticks-tony-boloneys-20241119.html",
+        "source": "Philadelphia Inquirer",
+        "date": "2024-11-19",
+        "type": "editorial_feature",
+        "authority": 8,
+        "data_structure": 6,
+        "brand_alignment": 9,
+        "freshness": 10,
+        "cross_links": 7,
+        "total": 8.0
+      },
+      {
+        "url": "https://njbiz.com/shark-tank-seals-deal-with-ac-mozzarella-sticks-brand/",
+        "source": "NJ Biz",
+        "date": "2025-04",
+        "type": "business_news",
+        "total": 7.4
+      }
+    ],
+    "whats_missing": [
+      "Product review citations from food authority sites",
+      "Comparison/ranking citations",
+      "Recipe integration citations",
+      "Retail validation citations"
+    ]
+  },
+  "step3_llm_evaluation": {
+    "overall_metrics": {
+      "ai_citation_rate_category_queries": 0,
+      "ai_citation_rate_brand_queries": 100,
+      "platforms_tested": 3,
+      "queries_tested": 5,
+      "brand_mentions": 1
+    },
+    "perplexity": {
+      "queries_tested": 3,
+      "brand_appeared": 1,
+      "brand_appearance_rate": 33.3,
+      "queries": {
+        "evaluative": {
+          "query": "What are the top frozen snack foods in 2025?",
+          "brand_mentioned": false,
+          "position": "not_ranked",
+          "citations_count": 12,
+          "top_competitors": ["General Mills", "Trü Frü", "Caulipower"]
+        },
+        "comparative": {
+          "query": "Best gourmet mozzarella sticks for home cooking",
+          "brand_mentioned": false,
+          "position": "indexed_but_silent",
+          "citations_count": 15,
+          "mad_mutz_citation_exists": true,
+          "mad_mutz_citation_ignored": true,
+          "top_competitors": ["Big Mozz Sticks", "TGI Fridays", "Whole Foods 365"],
+          "key_insight": "Perplexity found Mad Mutz website but chose not to cite it"
+        },
+        "brand_specific": {
+          "query": "Mad Mutz mozzarella sticks reviews and credentials",
+          "brand_mentioned": true,
+          "position": "primary_subject",
+          "citations_count": 6,
+          "status": "comprehensive_brand_profile"
+        }
+      },
+      "key_finding": "Indexed but invisible - needs third-party validation to convert discovery into citation"
+    },
+    "chatgpt": {
+      "queries_tested": 1,
+      "brand_appeared": 0,
+      "brand_appearance_rate": 0,
+      "queries": {
+        "evaluative": {
+          "query": "What are the best gourmet mozzarella sticks for home cooking in 2025?",
+          "brand_mentioned": false,
+          "position": "not_mentioned",
+          "citations_count": 3,
+          "competitors_cited": 8,
+          "top_competitors": ["Feel Good Foods", "Big Mozz", "Tuscanini", "Farm Rich"],
+          "most_influential_citation": "Allrecipes taste test"
+        }
+      },
+      "key_finding": "Allrecipes taste test was THE defining authority source - highest leverage intervention"
+    },
+    "gemini": {
+      "queries_tested": 1,
+      "brand_appeared": 0,
+      "brand_appearance_rate": 0,
+      "queries": {
+        "evaluative": {
+          "query": "What are the best gourmet mozzarella sticks for home cooking in 2025?",
+          "brand_mentioned": false,
+          "position": "not_mentioned",
+          "citations_count": 0,
+          "citation_format": "synthetic_no_sources",
+          "competitors_cited": 6,
+          "top_competitors": ["Big Mozz Sticks", "Feel Good Foods", "Whole Foods 365", "Trader Joe's"]
+        }
+      },
+      "key_finding": "Response based on 2023-2024 training data, not real-time search - needs presence in food blog taste tests"
+    },
+    "competitive_intelligence": {
+      "category_leader": "Big Mozz Sticks",
+      "big_mozz_average_position": 1.3,
+      "mad_mutz_average_position": "absent",
+      "big_mozz_advantages": [
+        "3+ product review citations (Sporked, Cheapism, Food52)",
+        "Editorial profile piece (Food52 'Big Mozz Guy')",
+        "Retail presence (Costco, specialty retailers)",
+        "Established gourmet positioning in food media"
+      ],
+      "mad_mutz_gap_to_leader": "5 of 6 citation stack layers missing"
+    }
+  },
+  "recommendations": {
+    "immediate_priorities_30_60_days": [
+      {
+        "priority": 1,
+        "action": "Secure Product Review/Taste Test Inclusion",
+        "current_status": "0 taste test citations",
+        "target": "Inclusion in 2-3 taste tests within 60 days",
+        "tactics": [
+          "Send samples to Allrecipes editors",
+          "Send samples to Sporked (editor@sporked.com)",
+          "Target Cheapism for gourmet frozen mozzarella sticks roundup",
+          "Send samples to Serious Eats, The Takeout, Tasting Table"
+        ],
+        "success_metric": "2-3 taste test inclusions, aiming for top 3 ranking",
+        "timeline_weeks": "4-8",
+        "estimated_cost": "$500",
+        "expected_roi": "Could unlock ChatGPT + Perplexity visibility",
+        "leverage": "highest"
+      },
+      {
+        "priority": 2,
+        "action": "Establish National Retail Product Pages",
+        "current_status": "No major retailer product pages",
+        "target": "3-5 major retailer product pages live",
+        "tactics": [
+          "Launch on Amazon (fastest, can DIY in 30 days)",
+          "Approach Thrive Market",
+          "Pursue Whole Foods regional test",
+          "List on Instacart/FreshDirect through current distributors"
+        ],
+        "success_metric": "Product pages with images, descriptions, schema, reviews enabled",
+        "timeline_weeks": "8-12",
+        "estimated_cost": "$1000-2000",
+        "expected_roi": "Unlocks ChatGPT product catalog citations"
+      },
+      {
+        "priority": 3,
+        "action": "Create Wikidata Entity + Optimize for Knowledge Graph",
+        "current_status": "0/3 knowledge graph presence",
+        "target": "Wikidata live within 7 days, Google Business Profile within 14 days",
+        "tactics": [
+          "Create Wikidata entry (no notability requirement)",
+          "Add Organization schema to madmutz.com",
+          "Create Google Business Profile",
+          "Create LinkedIn Company Page",
+          "Build Wikipedia eligibility (6-12 months)"
+        ],
+        "success_metric": "Machine-readable brand entity established",
+        "timeline_weeks": "1-2 immediate, 24-52 for Wikipedia",
+        "estimated_cost": "$0-1000",
+        "expected_roi": "Establishes entity legitimacy for all LLMs"
+      }
+    ],
+    "strategic_initiatives_90_180_days": [
+      {
+        "initiative": "Editorial Narrative Features",
+        "target": "2-3 national food media features",
+        "tactics": [
+          "Pitch Food52 'Meet the Maker' series",
+          "Pitch Eater regional feature",
+          "Pitch Bon Appétit trend piece",
+          "Pitch Food & Wine Shark Tank success story"
+        ],
+        "timeline_months": "3-6"
+      },
+      {
+        "initiative": "Recipe Influencer Partnerships",
+        "target": "10-15 recipe creators featuring Mad Mutz",
+        "tactics": [
+          "Send Recipe Development Kits to Lil' Luna, Pioneer Woman, Stress Baking",
+          "Partner for air fryer content",
+          "Create Mozzarella Stick Pairing Guide"
+        ],
+        "timeline_months": "2-3"
+      },
+      {
+        "initiative": "Consumer Review Accumulation",
+        "target": "100+ reviews across platforms",
+        "tactics": [
+          "Enable reviews on madmutz.com",
+          "Launch post-purchase email campaign",
+          "Amazon Vine program",
+          "Google Reviews via Business Profile"
+        ],
+        "timeline_months": "3-6"
+      },
+      {
+        "initiative": "Industry Trade Publication Coverage",
+        "target": "2-3 industry trade articles",
+        "tactics": [
+          "Pitch Snack and Bakery Magazine",
+          "Pitch Food Navigator USA",
+          "Pitch Specialty Food Association publications",
+          "Submit to Good Housekeeping 2026 Snack Awards"
+        ],
+        "timeline_months": "3-6"
+      }
+    ],
+    "long_term_vision_6_12_months": {
+      "goal": "Category Leadership - cited by all 3 platforms for gourmet mozzarella stick queries",
+      "target_metrics": {
+        "trust_node_coverage": "13/15 (87%)",
+        "citation_quality": "8.5+/10",
+        "ai_citation_rate": "100%",
+        "average_ai_ranking": "Top 3",
+        "review_count": "100+",
+        "retail_distribution": "10+ chains including Whole Foods/Amazon"
+      },
+      "strategy_pillars": [
+        "Build Authority Citation Stack (5-7 product reviews, 2-3 editorials, 2-3 trade pubs, 1-2 awards)",
+        "National Distribution Validation (Whole Foods, Trader Joe's, Amazon Subscribe & Save)",
+        "Content Ecosystem Dominance (#1 organic search for target queries)",
+        "Wikipedia Article Establishment (achieve notability, create article, trigger Knowledge Panel)"
+      ]
+    }
+  },
+  "next_audit": {
+    "recommended_date": "2025-12-27",
+    "frequency_days": 60,
+    "milestones_to_track": {
+      "30_days": [
+        "Wikidata entity live",
+        "Organization schema deployed",
+        "LinkedIn Company Page created",
+        "2-3 taste test sample shipments sent"
+      ],
+      "60_days": [
+        "Google Business Profile live",
+        "Amazon launch complete",
+        "First taste test publication expected"
+      ],
+      "90_days": [
+        "Whole Foods discussions initiated",
+        "Recipe influencer content live",
+        "Full re-audit"
+      ]
+    }
+  },
+  "investment_summary": {
+    "immediate_30_60_days": "$2,000-3,000",
+    "strategic_90_180_days": "$5,000-10,000",
+    "long_term_6_12_months": "$15,000-25,000",
+    "total_year_one": "$22,000-38,000",
+    "expected_roi": "500-2000 monthly qualified leads from AI discovery channels at full visibility"
+  }
+}

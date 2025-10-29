@@ -1,0 +1,35 @@
+Trust Node Category,Trust Node,Status,Priority,Timeline,Cost Estimate,Action Required,Impact on AI Visibility
+Knowledge Graphs,Wikipedia,Missing,High,6-12 months,$0-500,Accumulate 3+ significant coverage articles in reliable sources; Create article following WP:CORP notability,Blocks knowledge graph presence in all 3 LLMs
+Knowledge Graphs,Wikidata,Missing,Immediate,7 days,$0,Create entity with properties: founded date, founder, location, website, products, Shark Tank,Missing structured data foundation for entity recognition
+Knowledge Graphs,Google Knowledge Panel,Missing,High,Post-Wikipedia,,$0,Automatic after Wikipedia + reviews + SERP presence,No search entity recognition
+Company Profiles,LinkedIn Company Page,Missing,Immediate,7 days,$0,Create official Mad Mutz Mozzarella Laboratory page; Link to founder profile,Missing professional B2B channel
+Company Profiles,Bloomberg/Pitchbook,Missing,Low,12+ months,N/A,Requires significant business milestones or funding rounds,Missing institutional investor visibility
+Review Platforms,Google Reviews,Missing,High,14 days,$0,Enable via Google Business Profile; Launch review request campaign,No consumer validation on Google
+Review Platforms,Amazon Reviews,Missing,High,30-60 days,$1000+,Launch Amazon; Use Vine program for verified reviews,ChatGPT lacks retail validation
+Review Platforms,Yelp,Missing,Medium,30 days,$0,Claim business listing; Enable reviews,Limited consumer social proof
+Review Platforms,Trustpilot,Missing,Medium,30 days,$0,Create company profile; Request reviews,Missing third-party review platform
+Review Platforms,Facebook Reviews,Partial,Medium,Ongoing,$0,Currently 2 reviews - need 50+; Encourage customers to review,Minimal review aggregation
+News & PR,Philadelphia Inquirer,Present,N/A,N/A,N/A,2 articles published (Nov 2024, Apr 2025),Strong regional editorial coverage
+News & PR,NJ Biz,Present,N/A,N/A,N/A,1 article (Apr 2025),Business publication coverage
+News & PR,Press of Atlantic City,Present,N/A,N/A,N/A,2 articles (Oct 2024, Apr 2025),Regional news coverage
+News & PR,Additional Regional Coverage,Present,N/A,N/A,N/A,"PhillyVoice, 6ABC, NJ 101.5, Shore Local",Strong regional momentum
+Seed Sites (Food Authority),Food & Wine,Missing,High,90-180 days,$500-1000,Pitch editorial features; Product samples,LLMs cite for culinary authority
+Seed Sites (Food Authority),Bon Appétit,Missing,High,90-180 days,$500-1000,Pitch trend pieces; Send samples,LLMs cite for food trends
+Seed Sites (Food Authority),Serious Eats,Missing,Highest,60-90 days,$300-500,Send samples for taste test; Request inclusion,ChatGPT/Perplexity cite for product reviews
+Seed Sites (Food Authority),Food52,Missing,Highest,60-90 days,$300-500,"Pitch ""Meet the Maker"" series (replicate Big Mozz success)",Drove Big Mozz #1 positioning
+Seed Sites (Food Authority),Allrecipes,Missing,Highest,60-90 days,$300-500,Send samples for frozen snack taste test,THE defining citation for ChatGPT
+Product Review Sites,Sporked,Missing,Highest,60-90 days,$300-500,Send samples to editor@sporked.com,Drove Perplexity Big Mozz #1 ranking
+Product Review Sites,Cheapism,Missing,Highest,60-90 days,$300-500,Pitch for gourmet frozen mozzarella sticks roundup,Drove Perplexity comparative citations
+Product Review Sites,Tasting Table,Missing,High,90-120 days,$300-500,Send samples; Request inclusion in frozen product rankings,Food media authority
+Product Review Sites,The Takeout,Missing,High,90-120 days,$300-500,Send samples for frozen snack coverage,Food media coverage
+Retail Distribution,Amazon Product Page,Missing,Immediate,30-60 days,$1000-2000,Launch Amazon Seller account; Create product listings with rich data,ChatGPT product catalog citations
+Retail Distribution,Walmart.com,Missing,High,90-180 days,Varies,Pursue national retail partnerships,Structured product data for LLMs
+Retail Distribution,Whole Foods,Missing,High,90-180 days,Slotting fees vary,Start with regional test market,Premium retail authority signal
+Retail Distribution,Trader Joe's,Missing,Medium,180+ days,Partnership required,Requires private label or exclusive partnership discussions,Store brand authority (Gemini ranked highly)
+Retail Distribution,Thrive Market,Missing,High,60-90 days,$500-1000,Apply as specialty food vendor,Online specialty grocer (carried Feel Good Foods)
+Industry Trade,Snack and Bakery Magazine,Missing,Medium,90-180 days,$0-500,Pitch artisanal frozen snacks trend story,Industry trade authority (drove Perplexity Query 1)
+Industry Trade,Food Navigator USA,Missing,Medium,90-180 days,$0-500,Pitch Shark Tank success story,Industry trend analysis authority
+Industry Trade,Specialty Food Association,Missing,Medium,90-180 days,$500+,Join SFA; Submit to sofi Awards,Food industry authority
+Awards,Good Housekeeping 2026 Snack Awards,Missing,High,Apply 2026,$0-300,Submit products for testing,Consumer media award (drove Perplexity visibility)
+Awards,FABI Awards,Missing,Medium,Annual submission,$300-500,Submit for food innovation awards,Industry recognition
+Awards,sofi Awards,Missing,Medium,Annual submission,$300-500,Submit via Specialty Food Association,Industry recognition

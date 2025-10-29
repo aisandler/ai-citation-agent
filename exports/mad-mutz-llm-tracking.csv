@@ -1,0 +1,6 @@
+Platform,Query Type,Query Text,Brand Mentioned,Position,Citations Count,Top Competitors,Key Finding,Re-Test Date,Status Change
+Perplexity,Evaluative,What are the top frozen snack foods in 2025?,No,Not ranked,12,"General Mills, Trü Frü, Caulipower",Missing from broad category queries - need industry trade coverage,2025-12-27,
+Perplexity,Comparative,Best gourmet mozzarella sticks for home cooking,No (indexed but silent),Indexed but not cited,15,"Big Mozz Sticks, TGI Fridays, Whole Foods 365","Found website but didn't cite - need third-party validation (Sporked, Cheapism reviews)",2025-12-27,
+Perplexity,Brand-Specific,Mad Mutz mozzarella sticks reviews and credentials,Yes,Primary subject,6,N/A (brand query),Strong brand profile when asked directly - Philadelphia Inquirer citation anchors credibility,2025-12-27,
+ChatGPT,Evaluative,What are the best gourmet mozzarella sticks for home cooking in 2025?,No,Not mentioned,3,"Feel Good Foods, Big Mozz, Tuscanini, Farm Rich",Allrecices taste test was THE defining citation - highest priority action,2025-12-27,
+Gemini,Evaluative,What are the best gourmet mozzarella sticks for home cooking in 2025?,No,Not mentioned,0 (synthetic),"Big Mozz Sticks, Feel Good Foods, Whole Foods 365",Based on 2023-2024 training data - need food blog taste test presence,2025-12-27,
