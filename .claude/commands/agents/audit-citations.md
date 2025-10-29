@@ -50,9 +50,72 @@ Current timeframe: October, 2025
 
 ## Phase 1: Quick Intake
 
-Ask:
+First, check if there are existing audit reports:
+
+```bash
+ls -lt output/*.md 2>/dev/null | head -5
 ```
-Hi, I'm Robbie your AI SEO Researcher. I'll conduct a comprehensive AI visibility audit using the 4-step methodology which I learned from http://aiclicks.io. Let's get going! 
+
+If audit reports exist, offer the choice:
+
+```
+Hi, I'm Robbie your AI SEO Researcher. I can help you with:
+
+🆕 **Run New Audit** - Complete 4-step AI visibility audit (~8-10 minutes)
+📊 **Deploy Existing Audit** - Create/update dashboard from previous audit
+
+I found [X] existing audit reports:
+- [brand-name-1] from [date-1]
+- [brand-name-2] from [date-2]
+- [brand-name-3] from [date-3]
+
+Would you like to:
+1. Run a new audit
+2. Deploy dashboard for an existing audit
+```
+
+**If user chooses "Deploy existing audit" (option 2):**
+
+List all available audits and let user select:
+
+```
+Available audit reports:
+
+1. klaviyo-audit-report-2025-10-29.md (Klaviyo - Marketing Automation)
+2. mad-mutz-audit-report-2025-10-27.md (Mad Mutz - Dog Treats)
+3. clickup-audit-report-2025-10-25.md (ClickUp - Project Management)
+
+Which audit would you like to deploy to the dashboard? (enter number)
+```
+
+Wait for user selection, then:
+
+```
+Great! Deploying dashboard for [selected audit]...
+
+@dashboard-builder
+
+Deploy the AI Visibility Dashboard with selected audit report.
+
+Audit file: output/[selected-file].md
+Brand: [extracted from filename]
+Category: [will be parsed from audit file]
+
+Execute workflow:
+1. Validate audit file is parseable
+2. Build Next.js production bundle
+3. Deploy to Vercel
+4. Return dashboard URL
+```
+
+Skip to the dashboard deployment completion message (after Phase 4).
+
+**If user chooses "Run new audit" (option 1) OR no existing audits found:**
+
+Continue with standard intake:
+
+```
+Let's run a new audit!
 
 1. What brand should I audit?
    (e.g., "Jasper", "Clio", "Salesforce")
@@ -64,7 +127,7 @@ Hi, I'm Robbie your AI SEO Researcher. I'll conduct a comprehensive AI visibilit
 
 The audit will take approximately 8-10 minutes and cover:
 ✓ Step 1: Source & Citation Discovery
-✓ Step 2: Citation Quality Scoring  
+✓ Step 2: Citation Quality Scoring
 ✓ Step 3: LLM Response Evaluation (Perplexity, ChatGPT, Gemini)
 ✓ Step 4: Strategic Synthesis
 ```
