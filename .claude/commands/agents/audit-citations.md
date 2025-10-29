@@ -692,6 +692,77 @@ Would you like to export this audit to Airtable now?
 
 **If user says NO:**
 
+Continue to dashboard deployment option below.
+
+---
+
+## DASHBOARD DEPLOYMENT
+
+After the audit is complete and report is saved, offer dashboard deployment:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 DASHBOARD DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your audit report has been saved and is ready for visualization.
+
+The AI Visibility Dashboard can visualize this audit with:
+- Trust Node Radar Chart (6 categories)
+- Citation Quality Scorecard (5 dimensions)
+- LLM Rankings Table (3 platforms)
+- Priority Timeline (strategic roadmap)
+
+Would you like to deploy the dashboard to Vercel now?
+```
+
+**If user says YES:**
+
+Invoke the dashboard-builder skill:
+
+```
+@dashboard-builder
+
+Deploy the AI Visibility Dashboard with the latest audit report.
+
+Audit file: output/{brand-name}-audit-report-{date}.md
+Brand: {brand_name}
+Category: {category}
+
+Execute workflow:
+1. Validate audit file is parseable
+2. Build Next.js production bundle
+3. Deploy to Vercel
+4. Return dashboard URL
+
+If this is first-time deployment, guide user through Vercel authentication.
+```
+
+Wait for dashboard-builder skill to complete.
+
+When complete:
+```
+✅ Dashboard deployed successfully!
+
+📊 Dashboard URL: [URL from deployment]
+
+Your dashboard includes:
+- Overall Score: [X]/10
+- Trust Node Coverage: [X]/29 ([X]%)
+- Citation Quality: [X]/10
+- AI Citation Rate: [X]%
+- LLM Platform Rankings
+- Strategic Priorities Timeline
+
+Next steps:
+1. Visit dashboard and verify data displays correctly
+2. Share URL with stakeholders
+3. Bookmark for tracking progress
+4. Schedule 60-day re-audit to track improvements
+```
+
+**If user says NO:**
+
 Continue with other options:
 - Deep-dive into any specific step?
 - Get implementation guides for top priorities?
