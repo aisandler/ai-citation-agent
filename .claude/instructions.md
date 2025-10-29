@@ -45,3 +45,19 @@ Always structure findings with:
 3. Competitive comparison
 4. Priority recommendations
 5. Specific next actions
+
+## Documentation Maintenance
+
+**IMPORTANT:** When making significant changes to the project, update README.md:
+
+- **After adding new agents** → Update "Specialized Agents" section
+- **After creating new skills** → Update "Skills" section
+- **After fixing bugs** → Update "Known Issues & Solutions" section
+- **After completing TODOs** → Check off items in README TODO list
+- **After major features** → Update "What It Does" section
+
+**When updating README.md:**
+1. Update the "Last updated" date at bottom
+2. Update version-specific details (e.g., agent count, feature list)
+3. Keep TODO list current with remaining work
+4. Add examples if new functionality is significant
