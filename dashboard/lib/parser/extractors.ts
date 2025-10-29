@@ -58,7 +58,7 @@ export function extractTrustNodeCoverage(
   markdown: string
 ): TrustNodeCoverage {
   const coverageMatch = markdown.match(
-    /## STEP 1 RESULTS: Source & Citation Discovery[\s\S]*?### Trust Node Coverage Map[\s\S]*?\*\*Overall Coverage:\*\* (\d+)\/(\d+) trust nodes \((\d+)%\)([\s\S]*?)(?=### Critical Missing Nodes|$)/
+    /## STEP 1 RESULTS: Source & Citation Discovery[\s\S]*?### Trust Node Coverage Map[\s\S]*?\*\*Overall Coverage:\*\* (\d+)\/(\d+) trust nodes \((\d+)%[^)]*\)([\s\S]*?)(?=### Critical Missing Nodes|$)/
   );
 
   if (!coverageMatch) {

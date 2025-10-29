@@ -16,8 +16,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function AuditPage({ params }: { params: { slug: string } }) {
-  const audit = loadAuditBySlug(params.slug);
+export default async function AuditPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const audit = loadAuditBySlug(slug);
 
   if (!audit) {
     notFound();
@@ -41,7 +42,7 @@ export default function AuditPage({ params }: { params: { slug: string } }) {
           <div className="flex gap-4">
             <PrintButton />
             <AuditNavigation
-              currentSlug={params.slug}
+              currentSlug={slug}
               allAudits={allAudits}
             />
           </div>
