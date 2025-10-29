@@ -1,0 +1,23 @@
+{
+  "name": "ai-citation-agent",
+  "version": "1.0.0",
+  "description": "AI Citation Intelligence: 4-step methodology for auditing brand visibility across LLM platforms",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/test-airtable-connection.js"
+  },
+  "keywords": [
+    "ai",
+    "seo",
+    "citations",
+    "llm",
+    "airtable"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "airtable": "^0.12.2",
+    "dotenv": "^16.3.1"
+  }
+}
