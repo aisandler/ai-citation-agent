@@ -103,9 +103,7 @@ ai-citation-agent/
 │   ├── setup-airtable-schema.js     # Create Airtable tables
 │   ├── test-airtable-connection.js  # Validate Airtable credentials
 │   └── delete-airtable-tables.js    # Clean up Airtable (with confirmation)
-├── .env.local                       # Airtable credentials (gitignored)
-└── skills/
-    └── format-citations-report.md   # Report formatting utilities
+└── .env.local                       # Airtable credentials (gitignored)
 ```
 
 ## 🔧 Requirements
