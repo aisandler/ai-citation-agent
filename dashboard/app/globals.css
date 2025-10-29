@@ -23,3 +23,37 @@ body {
 * {
   color: inherit;
 }
+
+/* Print styles for PDF export */
+@media print {
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Hide elements not needed in print */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Preserve background colors for cards */
+  .print\:bg-blue-600 {
+    background-color: #2563eb !important;
+  }
+
+  /* Page breaks */
+  .bg-white {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure charts are visible */
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

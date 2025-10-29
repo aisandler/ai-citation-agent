@@ -1,4 +1,5 @@
-import { loadLatestAudit, hasAudits } from '@/lib/audit-loader';
+import Link from 'next/link';
+import { loadLatestAudit, hasAudits, loadAllAudits } from '@/lib/audit-loader';
 import { formatDate, getScoreColor, getScoreBgColor } from '@/lib/utils';
 import TrustNodeRadar from '@/components/charts/TrustNodeRadar';
 import CitationQualityBars from '@/components/charts/CitationQualityBars';
@@ -71,10 +72,21 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 text-sm text-gray-600">
-          <span>📅 {formatDate(metadata.date)}</span>
-          <span>•</span>
-          <span>📊 {metadata.methodology}</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 text-sm text-gray-600">
+            <span>📅 {formatDate(metadata.date)}</span>
+            <span>•</span>
+            <span>📊 {metadata.methodology}</span>
+          </div>
+          <Link
+            href={`/audit/${metadata.slug}`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          >
+            View Full Audit
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </div>
 
