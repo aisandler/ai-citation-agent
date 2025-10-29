@@ -382,9 +382,21 @@ After generating the full markdown report above, append the following JSON data 
         "competitor_2_rank": null,
         "competitor_3": null,
         "competitor_3_rank": null,
-        "response_summary": "Brand-specific query strong. Citations: G2 (4.5/5), Capterra (4.3/5), official site, Crunchbase, Product Hunt, LinkedIn."
+        "response_summary": "Brand-specific query strong. Citations: G2 (4.5/5), Capterra (4.3/5), official site, Crunchbase, Product Hunt, LinkedIn.",
+        "citation_urls": ["https://www.g2.com/products/brand-name/reviews", "https://www.capterra.com/p/123456/BrandName", "https://brandname.com", "https://www.crunchbase.com/organization/brand-name", "https://www.producthunt.com/products/brand-name", "https://www.linkedin.com/company/brand-name"]
       }
-    ]
+    ],
+    "citation_mapping": {
+      "gemini_cited_urls": [
+        "https://www.g2.com/products/brand-name/reviews",
+        "https://www.capterra.com/p/123456/BrandName",
+        "https://venturebeat.com/article",
+        "https://brandname.com",
+        "https://www.crunchbase.com/organization/brand-name",
+        "https://www.producthunt.com/products/brand-name",
+        "https://www.linkedin.com/company/brand-name"
+      ]
+    }
   }
 }
 ```
@@ -401,6 +413,8 @@ After generating the full markdown report above, append the following JSON data 
 8. **citations_found** is total superscript citations counted
 9. **competitor_X** and **competitor_X_rank** capture top 3 competitors
 10. **response_summary** explains findings and citation patterns
+11. **citation_urls** array contains ALL URLs from superscript citations in this specific query response (extract from browser snapshot)
+12. **citation_mapping.gemini_cited_urls** is a DEDUPLICATED array of ALL unique URLs cited across ALL queries (this will be used to mark cited_by_gemini=true in Citations table)
 
 This structured data will be parsed by the orchestrator and written to Airtable for persistence and trend tracking.
 

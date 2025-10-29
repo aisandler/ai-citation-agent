@@ -230,9 +230,20 @@ After generating the full markdown report above, append the following JSON data 
         "competitor_2_rank": null,
         "competitor_3": null,
         "competitor_3_rank": null,
-        "response_summary": "Brand-specific query returned strong results. G2 (4.5/5, 150 reviews), Capterra (4.3/5), and official site cited. Knowledge panel absent but review platforms compensated."
+        "response_summary": "Brand-specific query returned strong results. G2 (4.5/5, 150 reviews), Capterra (4.3/5), and official site cited. Knowledge panel absent but review platforms compensated.",
+        "citation_urls": ["https://www.g2.com/products/brand-name", "https://www.capterra.com/p/123456/BrandName", "https://brandname.com", "https://techcrunch.com/article", "https://thedigitalprojectmanager.com/tools/brand-review"]
       }
-    ]
+    ],
+    "citation_mapping": {
+      "perplexity_cited_urls": [
+        "https://www.g2.com/products/brand-name",
+        "https://www.capterra.com/p/123456/BrandName",
+        "https://techcrunch.com/article",
+        "https://thedigitalprojectmanager.com/tools/brand-review",
+        "https://zapier.com/blog/tools",
+        "https://tech.co/project-management/review"
+      ]
+    }
   }
 }
 ```
@@ -249,6 +260,8 @@ After generating the full markdown report above, append the following JSON data 
 8. **citations_found** is total count of citations in response
 9. **competitor_X** and **competitor_X_rank** capture top 3 competitors (null if fewer than 3 or none)
 10. **response_summary** explains key findings and citation patterns
+11. **citation_urls** array contains ALL URLs that Perplexity cited in this specific query response (extract from numbered citations [1], [2], etc.)
+12. **citation_mapping.perplexity_cited_urls** is a DEDUPLICATED array of ALL unique URLs cited across ALL queries (this will be used to mark cited_by_perplexity=true in Citations table)
 
 This structured data will be parsed by the orchestrator and written to Airtable for persistence and trend tracking.
 

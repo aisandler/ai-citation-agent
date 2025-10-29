@@ -73,6 +73,15 @@ The methodology connects three data layers:
 
 Synthesis must explain these causal chains, not just report scores.
 
+**LLM Citation Mapping (Automated):**
+After Step 3 completes, the orchestrator automatically maps which LLM platforms cited each source:
+1. Each LLM checker agent returns `citation_mapping.{platform}_cited_urls` array
+2. Orchestrator compares citation URLs from Step 2 against LLM citation lists
+3. Sets `cited_by_perplexity`, `cited_by_chatgpt`, `cited_by_gemini` booleans on each citation
+4. Data persists to Airtable Citations table for trend analysis
+
+This mapping reveals which sources drive AI visibility (e.g., "G2 cited by all 3 platforms, Wikipedia cited by none").
+
 ## Context Files
 
 Agents reference shared context:

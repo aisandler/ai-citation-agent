@@ -685,9 +685,44 @@ Look for code blocks with pattern:
 **Store in internal state:**
 - Step 1 (source-discovery): `trust_nodes` array + `coverage_summary`
 - Step 2 (citation-quality-analyzer): `citations` array + `quality_summary`
-- Step 3a (perplexity-citation-checker): `llm_responses` array (Perplexity)
-- Step 3b (chatgpt-citation-checker): `llm_responses` array (ChatGPT)
-- Step 3c (gemini-citation-checker): `llm_responses` array (Gemini)
+- Step 3a (perplexity-citation-checker): `llm_responses` array (Perplexity) + `citation_mapping.perplexity_cited_urls`
+- Step 3b (chatgpt-citation-checker): `llm_responses` array (ChatGPT) + `citation_mapping.chatgpt_cited_urls`
+- Step 3c (gemini-citation-checker): `llm_responses` array (Gemini) + `citation_mapping.gemini_cited_urls`
+
+**After Step 3 completes, map LLM citations to citation records:**
+
+For each citation in Step 2's `citations` array, determine which LLM platforms cited it:
+
+1. Extract citation URLs from Step 3 agents:
+   - `perplexity_urls` = Step 3a's `citation_mapping.perplexity_cited_urls`
+   - `chatgpt_urls` = Step 3b's `citation_mapping.chatgpt_cited_urls`
+   - `gemini_urls` = Step 3c's `citation_mapping.gemini_cited_urls`
+
+2. For each citation, check if its `source_url` (or domain-normalized URL) appears in any platform's cited URLs:
+   - Set `cited_by_perplexity = true` if citation URL found in perplexity_urls
+   - Set `cited_by_chatgpt = true` if citation URL found in chatgpt_urls
+   - Set `cited_by_gemini = true` if citation URL found in gemini_urls
+
+3. URL matching logic:
+   - Exact match: `citation.source_url == platform_url`
+   - Domain match: `citation.source_domain` in `platform_url` (handles URL variations like query params, www vs non-www)
+   - Normalize URLs by removing trailing slashes, query parameters for comparison
+
+**Example mapping:**
+```javascript
+// Step 2 citation
+{
+  "source_url": "https://www.g2.com/products/clickup/reviews",
+  "source_domain": "g2.com",
+  ...
+}
+
+// Step 3a Perplexity cited: ["https://www.g2.com/products/clickup/reviews", ...]
+// Step 3b ChatGPT cited: ["https://www.g2.com/products/clickup/reviews", ...]
+// Step 3c Gemini cited: ["https://www.g2.com/products/clickup/reviews", ...]
+
+// Result: citation gets cited_by_perplexity=true, cited_by_chatgpt=true, cited_by_gemini=true
+```
 
 **After Step 4 synthesis, construct complete payload:**
 
