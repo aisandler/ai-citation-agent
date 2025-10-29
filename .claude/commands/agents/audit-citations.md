@@ -633,6 +633,35 @@ Strategy:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+## SAVE AUDIT REPORT
+
+**REQUIRED:** Save the complete audit report as a markdown file for downstream processing.
+
+Use the Write tool to save the ENTIRE Step 4 synthesis report (from "# AI VISIBILITY AUDIT REPORT" through "## APPENDIX: Methodology Details") to:
+
+```
+output/{brand-name}-audit-report-{YYYY-MM-DD}.md
+```
+
+**Filename format:**
+- Brand name: lowercase, hyphens instead of spaces (e.g., "clickup", "monday-com", "mad-mutz")
+- Date: ISO format YYYY-MM-DD
+- Example: `output/clickup-audit-report-2025-10-29.md`
+
+**File contents:** Complete markdown report including:
+- Executive Summary
+- All 4 step results (Trust Nodes, Citation Quality, LLM Evaluation, Synthesis)
+- Strategic Recommendations (Immediate, Strategic, Long-term)
+- Re-audit Schedule
+- Appendix
+
+**After saving:**
+```
+✅ Audit report saved: output/{brand-name}-audit-report-{date}.md
+```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## AUDIT DATA EXPORT
 
 The audit has generated structured data ready for Airtable export:

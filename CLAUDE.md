@@ -15,6 +15,10 @@ AI Citation Agent: Audits brand visibility across LLM platforms (Perplexity, Cha
 
 Prompts for: brand name, category context, optional content URLs. Takes ~8-10 minutes, generates comprehensive report with AI visibility score, trust node coverage, citation quality metrics, and strategic roadmap.
 
+**Outputs:**
+- Markdown report saved to `output/{brand}-audit-report-{date}.md` (required for downstream processing)
+- Structured data exported to Airtable (optional, prompted at end)
+
 ### Manual Cleanup (Browser Issues)
 If browser agents encounter endless tabs:
 ```bash
@@ -134,6 +138,25 @@ Query taxonomy per platform:
 3. Brand-Specific: "[Brand] reviews and credentials"
 
 Track: appearance (✓/✗), position (#1-10 or unranked), citation sources (URLs), competitors mentioned.
+
+## Audit Report Files
+
+**Location:** `output/{brand}-audit-report-{date}.md`
+
+**Purpose:** Required markdown files for downstream processing (future Step 5 implementation)
+
+**Format:** Complete audit synthesis from Step 4, including:
+- Executive Summary with overall score
+- Step 1-3 detailed results
+- Strategic Recommendations (Immediate/Strategic/Long-term)
+- Re-audit Schedule
+- Methodology Appendix
+
+**Retention:** Keep all audit reports for historical reference and trend analysis. These files serve as:
+1. Human-readable audit deliverables
+2. Input for future downstream processing steps
+3. Version-controlled audit history
+4. Backup of audit findings (parallel to Airtable)
 
 ## Documentation Maintenance
 
