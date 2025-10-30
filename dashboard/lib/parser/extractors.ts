@@ -241,9 +241,11 @@ export function extractLLMRankings(markdown: string): LLMRankings {
 
   const content = rankingsMatch[1];
 
-  // Parse platform table - look for the actual table rows (skip header)
+  // Parse platform table - handles both 4 and 5 column formats
+  // 4 columns: Platform | Brand Cited? | Position | Citations Found
+  // 5 columns: Platform | Brand Cited? | Position | Citations Found | Query Coverage
   const tableMatch = content.match(
-    /\| Platform \| Brand Cited\? \| Position \| Citations Found \|[\s\S]*?\n((?:\|[^|]*\|[^|]*\|[^|]*\|[^|]*\|\n?)+)/
+    /\| Platform \| Brand Cited\? \| Position \| Citations Found \|[\s\S]*?\n((?:\|[^|]*\|[^|]*\|[^|]*\|[^|]*\|[^|]*\n?)+)/
   );
 
   let platformRows: string[] = [];
@@ -255,6 +257,7 @@ export function extractLLMRankings(markdown: string): LLMRankings {
   }
 
   const platforms = platformRows.map((row) => {
+      // Match 4 or 5 columns - capture first 4, ignore 5th if present
       const match = row.match(
         /\|\s*(Perplexity|ChatGPT|Gemini)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|/
       );

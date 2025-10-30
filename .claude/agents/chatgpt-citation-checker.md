@@ -42,7 +42,7 @@ You MUST complete these 9 steps IN ORDER. Do NOT skip steps. Do NOT close browse
 - [ ] Step 3: Click search button (if found)
 - [ ] Step 4: Take snapshot to find input
 - [ ] Step 5: Type query and submit
-- [ ] Step 6: Wait FULL 30 seconds
+- [ ] Step 6: Wait 20 seconds for response
 - [ ] Step 7: Take final snapshot to get response
 - [ ] Step 8: Extract citations with position tracking
 - [ ] Step 9: THEN close browser
@@ -150,13 +150,13 @@ Say: "Query submitted: '[query]'. Now waiting for web search results..."
 Use tool: `playwright-ms:browser_wait_for`
 ```json
 {
-  "time": 30
+  "time": 20
 }
 ```
 
-Say: "Waiting 30 seconds for ChatGPT to search the web and generate response..."
+Say: "Waiting 20 seconds for ChatGPT to search the web and generate response..."
 
-**This step is MANDATORY. Web search takes time.**
+**This step is MANDATORY. Web search takes time. (Reduced from 30s to 20s for performance)**
 
 ---
 
@@ -241,7 +241,7 @@ As you complete each step, report progress:
 ✓ Step 3: Search button clicked (or noted as not found)
 ✓ Step 4: Input field located
 ✓ Step 5: Query submitted
-⏳ Step 6: Waiting for web search (30 seconds)...
+⏳ Step 6: Waiting for web search (20 seconds)...
 ✓ Step 7: Final snapshot captured
 ✓ Step 8: Citations and position data extracted
 ✓ Step 9: Browser closed
@@ -390,8 +390,8 @@ Query taxonomy applied. Position tracked: [result]. Citations mapped to response
 - If still fails, report error and close browser
 
 **If Step 6 (wait) seems too long:**
-- Do NOT skip it. 30 seconds is required.
-- ChatGPT web search genuinely takes this long.
+- Do NOT skip it. 20 seconds is typically sufficient.
+- ChatGPT web search usually completes within 15-20 seconds.
 
 **If Step 7 (final snapshot) shows no response:**
 - Report that response wasn't ready

@@ -50,48 +50,104 @@ Current timeframe: October, 2025
 
 ## Phase 1: Quick Intake
 
-First, check if there are existing audit reports:
+Show intake questions immediately:
+
+```
+Hi, I'm Robbie your AI SEO Researcher! I learned everything I know from http://aiclicks.io
+
+Let's run an AI visibility audit.
+
+1. **What brand should I audit?**
+   (e.g., "Jasper", "Clio", "Salesforce")
+
+2. **What's the category/topic context?**
+   (e.g., "AI writing tools", "legal billing software", "CRM platforms")
+
+3. **Do you have content URLs to analyze?** (optional)
+
+The audit will take approximately 8-10 minutes and cover:
+✓ Step 1: Source & Citation Discovery
+✓ Step 2: Citation Quality Scoring
+✓ Step 3: LLM Response Evaluation (Perplexity, ChatGPT, Gemini)
+✓ Step 4: Strategic Synthesis
+
+---
+
+_Or type **'manage'** to view/manage existing audit reports_
+```
+
+**Detection: If user responds with 'manage' instead of brand name:**
+
+Jump to "Manage Existing Reports" section (see below).
+
+**If user provides brand name and category:**
+
+Continue to Phase 2 with the audit execution.
+
+Wait for user to provide at least brand name and category.
+
+---
+
+## Manage Existing Reports
+
+**This section is triggered when user types 'manage' in Phase 1.**
+
+First, check for existing audit reports:
 
 ```bash
-ls -lt output/*.md 2>/dev/null | head -5
+ls -lt output/*audit-report*.md 2>/dev/null
 ```
 
-If audit reports exist, offer the choice:
-
+If no reports found:
 ```
-Hi, I'm Robbie your AI SEO Researcher. I can help you with:
+No existing audit reports found in output/ directory.
 
-🆕 **Run New Audit** - Complete 4-step AI visibility audit (~8-10 minutes)
-📊 **Deploy Existing Audit** - Create/update dashboard from previous audit
-
-I found [X] existing audit reports:
-- [brand-name-1] from [date-1]
-- [brand-name-2] from [date-2]
-- [brand-name-3] from [date-3]
-
-Would you like to:
-1. Run a new audit
-2. Deploy dashboard for an existing audit
+Let's run a new audit instead! Please provide:
+1. Brand name
+2. Category/topic context
 ```
 
-**If user chooses "Deploy existing audit" (option 2):**
+Return to Phase 1 intake questions.
 
-List all available audits and let user select:
+---
 
-```
-Available audit reports:
-
-1. klaviyo-audit-report-2025-10-29.md (Klaviyo - Marketing Automation)
-2. mad-mutz-audit-report-2025-10-27.md (Mad Mutz - Dog Treats)
-3. clickup-audit-report-2025-10-25.md (ClickUp - Project Management)
-
-Which audit would you like to deploy to the dashboard? (enter number)
-```
-
-Wait for user selection, then:
+**If reports exist, show management menu:**
 
 ```
-Great! Deploying dashboard for [selected audit]...
+📊 AUDIT REPORT MANAGEMENT
+
+Found [X] existing audit reports:
+
+1. fairlife-audit-report-2025-10-29.md (October 29, 2025)
+2. klaviyo-audit-report-2025-10-29.md (October 29, 2025)
+3. [additional reports...]
+
+What would you like to do?
+
+1. 🚀 **Deploy dashboard** (Vercel) - Deploy report to production
+2. 📄 **View report summary** - See executive summary and key findings
+3. 💾 **Export to Airtable** - Export audit data to Airtable
+4. 🗑️  **Delete/archive report** - Move report to archive folder
+5. 💻 **Run dashboard locally** - Start local development server
+
+Enter your choice (1-5):
+```
+
+Wait for user selection.
+
+---
+
+### Option 1: Deploy Dashboard (Vercel)
+
+Ask user which report to deploy:
+```
+Which audit would you like to deploy? (enter number)
+```
+
+Wait for selection, then:
+
+```
+Deploying [selected-report] to Vercel...
 
 @dashboard-builder
 
@@ -106,33 +162,241 @@ Execute workflow:
 2. Build Next.js production bundle
 3. Deploy to Vercel
 4. Return dashboard URL
+
+If this is first-time deployment, guide user through Vercel authentication.
 ```
 
-Skip to the dashboard deployment completion message (after Phase 4).
-
-**If user chooses "Run new audit" (option 1) OR no existing audits found:**
-
-Continue with standard intake:
-
+After deployment completes:
 ```
-Let's run a new audit!
+✅ Dashboard deployed successfully!
 
-1. What brand should I audit?
-   (e.g., "Jasper", "Clio", "Salesforce")
+📊 Dashboard URL: [URL from deployment]
 
-2. What's the category/topic context?
-   (e.g., "AI writing tools", "legal billing software", "CRM platforms")
-
-3. Do you have content URLs to analyze? (optional)
-
-The audit will take approximately 8-10 minutes and cover:
-✓ Step 1: Source & Citation Discovery
-✓ Step 2: Citation Quality Scoring
-✓ Step 3: LLM Response Evaluation (Perplexity, ChatGPT, Gemini)
-✓ Step 4: Strategic Synthesis
+Manage another report or run new audit? (type 'manage' or provide brand name)
 ```
 
-Wait for user to provide at least brand name and category.
+---
+
+### Option 2: View Report Summary
+
+Ask user which report to view:
+```
+Which audit report would you like to view? (enter number)
+```
+
+Wait for selection, then read the markdown file and extract:
+- Brand name
+- Category
+- Audit date
+- Overall AI Visibility Score
+- Trust Node Coverage
+- Citation Quality Score
+- AI Citation Rate (% of platforms)
+- Top 3 Immediate Priorities
+- Executive Summary (first paragraph)
+
+Display as:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📄 AUDIT REPORT SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Brand:** [Brand]
+**Category:** [Category]
+**Audit Date:** [Date]
+
+**OVERALL SCORES**
+- AI Visibility Score: [X]/10
+- Trust Node Coverage: [X]/29 ([X]%)
+- Citation Quality: [X]/10
+- AI Citation Rate: [X]%
+
+**KEY FINDINGS**
+
+[Executive Summary paragraph]
+
+**TOP 3 PRIORITIES**
+
+1. [Priority 1 title]
+2. [Priority 2 title]
+3. [Priority 3 title]
+
+**FULL REPORT**
+File: output/[filename]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Manage another report or run new audit? (type 'manage' or provide brand name)
+```
+
+---
+
+### Option 3: Export to Airtable
+
+Ask user which report to export:
+```
+Which audit report would you like to export to Airtable? (enter number)
+```
+
+Wait for selection, then:
+
+```
+Exporting [selected-report] to Airtable...
+
+Reading audit file: output/[selected-file].md
+
+Parsing:
+- Audit metadata (brand, category, date, scores)
+- Trust nodes (29 nodes across 6 categories)
+- Citations (with quality scores)
+- LLM responses (Perplexity, ChatGPT, Gemini)
+- Priorities (immediate, strategic, long-term)
+
+@airtable-writer
+
+Export parsed audit data to Airtable.
+
+Create records in:
+- Audit_Runs table (1 record with overall metrics)
+- Trust_Nodes table ([X] records)
+- Citations table ([X] records with quality scores)
+- LLM_Responses table ([X] records from 3 platforms)
+- Priorities table ([X] action items)
+
+Link all records to the audit run via audit_run_id.
+
+Report back:
+- Records created per table
+- Any errors or warnings
+- Airtable record URLs for verification
+```
+
+After export completes:
+```
+✅ Export complete!
+
+Exported to Airtable:
+- 1 Audit Run
+- [X] Trust Nodes
+- [X] Citations
+- [X] LLM Responses
+- [X] Priorities
+
+View in Airtable: [base URL if available]
+
+Manage another report or run new audit? (type 'manage' or provide brand name)
+```
+
+---
+
+### Option 4: Delete/Archive Report
+
+Ask user which report to archive:
+```
+Which audit report would you like to archive? (enter number)
+```
+
+Wait for selection, then confirm:
+```
+⚠️  Are you sure you want to archive [selected-report]?
+
+This will move the file to output/archive/ folder.
+You can restore it later if needed.
+
+Type 'yes' to confirm or 'no' to cancel:
+```
+
+If user confirms 'yes':
+
+```bash
+# Create archive directory if it doesn't exist
+mkdir -p output/archive
+
+# Move the file
+mv output/[selected-file].md output/archive/[selected-file].md
+```
+
+Then:
+```
+✅ Report archived successfully!
+
+Moved to: output/archive/[selected-file].md
+
+To restore later, move it back to output/ folder.
+
+Manage another report or run new audit? (type 'manage' or provide brand name)
+```
+
+If user says 'no':
+```
+Archive cancelled.
+
+Manage another report or run new audit? (type 'manage' or provide brand name)
+```
+
+---
+
+### Option 5: Run Dashboard Locally
+
+Ask user which report to use:
+```
+Which audit report would you like to visualize locally? (enter number)
+```
+
+Wait for selection, then:
+
+```
+Starting local dashboard for [selected-report]...
+
+@dashboard-builder
+
+Run the AI Visibility Dashboard locally with selected audit report.
+
+Audit file: output/[selected-file].md
+Brand: [extracted from filename]
+Category: [will be parsed from audit file]
+Mode: local (not deployment)
+
+Execute workflow:
+1. Validate audit file is parseable
+2. Transform markdown data into dashboard format
+3. Start local development server
+4. Return localhost URL
+
+The skill handles all data transformation and server setup.
+```
+
+Wait for dashboard-builder skill to complete.
+
+When complete:
+```
+✅ Local dashboard server running!
+
+Dashboard URL: http://localhost:3000
+
+Features available:
+- Trust Node Radar Chart
+- Citation Quality Scorecard
+- LLM Rankings Table
+- Priority Timeline
+
+Data loaded from:
+output/[selected-file].md
+
+Press Ctrl+C in terminal to stop the server.
+
+Note: The dashboard process will continue running in the background.
+Manage another report or run new audit? (type 'manage' or provide brand name)
+```
+
+---
+
+**After any management action:**
+
+User can either:
+1. Type 'manage' again to return to management menu
+2. Provide brand name to start a new audit (return to Phase 1)
+3. Exit
 
 ---
 
@@ -211,23 +475,22 @@ Moving to Step 2...
 
 Evaluating citation quality for [Brand]...
 
-First, let me identify existing citations to score...
+Using citations found in Step 1 (trust node URLs)...
 ```
 
-**Run quick searches to find citations:**
+**OPTIMIZED: Use Step 1 data directly (no redundant searches):**
 
-Use web_search to find where brand is cited:
-```
-Query 1: "[Brand] reviews"
-Query 2: "[Brand] site:g2.com OR site:capterra.com"
-Query 3: "[Brand] site:techcrunch.com OR site:forbes.com"
-```
+Extract citation URLs from Step 1 trust nodes:
+- Knowledge graph URLs (Wikipedia, Wikidata, etc.)
+- Review platform URLs (G2, Capterra, Trustpilot, etc.)
+- Directory URLs (Crunchbase, Product Hunt, etc.)
+- Company profile URLs (LinkedIn, Bloomberg, etc.)
+- News/PR URLs (from Step 1 results)
+- Seed site URLs (TechCrunch, Inc.com, etc.)
 
-Collect URLs from search results (top 5-10 citations found).
-
-**Then score them:**
+**Pass these URLs to citation-quality-analyzer:**
 ```
-Found [X] citations to analyze. Scoring quality...
+Found [X] citations from Step 1 trust nodes. Scoring quality...
 
 @citation-quality-analyzer
 
@@ -274,16 +537,17 @@ Moving to Step 3...
 
 Evaluating how AI platforms cite [Brand]...
 
-Strategy: Query taxonomy across 3 platforms
-- Multiple query types per platform
-- Position tracking
-- Citation mapping
-- Sequential execution (browser automation)
+Strategy: Query taxonomy across 3 platforms (OPTIMIZED)
+- Perplexity: 3 query types (API is fast)
+- ChatGPT: 1 query only (browser automation - Evaluative)
+- Gemini: 1 query only (browser automation - Evaluative)
+- Position tracking and citation mapping for all
+- Sequential execution for browser agents
 
-Query types to test:
-1. Evaluative: "What are the top [category] in 2025?"
-2. Comparative: "Best [category] for [use case]"
-3. Brand-Specific: "[Brand] reviews and credentials"
+Query types available:
+1. Evaluative: "What are the top [category] in 2025?" ← PRIMARY (all platforms)
+2. Comparative: "Best [category] for [use case]" ← Perplexity only
+3. Brand-Specific: "[Brand] reviews and credentials" ← Perplexity only
 
 ⚠️ IMPORTANT: Browser-based agents (ChatGPT, Gemini) automatically invoke @playwright-cleanup before starting.
 If you encounter endless tabs or browser issues, the browser agents will self-clean and report the issue.
@@ -343,7 +607,7 @@ Query: "What are the top [category] in 2025?"
 
 Complete full 9-step workflow:
 - Navigate, enable search, submit query
-- WAIT 30 seconds for web search
+- WAIT 20 seconds for web search (optimized from 30s)
 - Extract position, citations, competitors
 - Close browser
 - Report with position tracking
@@ -381,7 +645,7 @@ Query: "What are the top [category] in 2025?"
 
 Complete full workflow:
 - Navigate, submit query
-- WAIT 30 seconds
+- WAIT 20 seconds (optimized from 30s)
 - Extract position, citations, competitors
 - Close browser
 - Report with position tracking
@@ -776,10 +1040,21 @@ The AI Visibility Dashboard can visualize this audit with:
 - LLM Rankings Table (3 platforms)
 - Priority Timeline (strategic roadmap)
 
-Would you like to deploy the dashboard to Vercel now?
+How would you like to view the dashboard?
+
+1. 🚀 **Deploy to Vercel** - Production deployment with public URL
+2. 💻 **Run locally** - Start local development server (localhost:3000)
+3. 🌐 **Both** - Deploy to Vercel AND run locally
+4. ⏭️  **Skip** - Continue without dashboard
+
+Enter your choice (1-4):
 ```
 
-**If user says YES:**
+Wait for user selection.
+
+---
+
+### Option 1: Deploy to Vercel
 
 Invoke the dashboard-builder skill:
 
@@ -824,12 +1099,120 @@ Next steps:
 4. Schedule 60-day re-audit to track improvements
 ```
 
-**If user says NO:**
+---
+
+### Option 2: Run Locally
+
+Invoke the dashboard-builder skill for local development:
+
+```
+@dashboard-builder
+
+Run the AI Visibility Dashboard locally with the latest audit report.
+
+Audit file: output/{brand-name}-audit-report-{date}.md
+Brand: {brand_name}
+Category: {category}
+Mode: local (not deployment)
+
+Execute workflow:
+1. Validate audit file is parseable
+2. Transform markdown data into dashboard format
+3. Start local development server
+4. Return localhost URL
+
+The skill handles all data transformation and server setup.
+```
+
+Wait for dashboard-builder skill to complete.
+
+When complete:
+```
+✅ Local dashboard server running!
+
+Dashboard URL: http://localhost:3000
+
+Features available:
+- Trust Node Radar Chart
+- Citation Quality Scorecard
+- LLM Rankings Table
+- Priority Timeline
+
+Data loaded from:
+output/{brand-name}-audit-report-{date}.md
+
+Press Ctrl+C in terminal to stop the server.
+
+Note: The dashboard process will continue running in the background.
+```
+
+---
+
+### Option 3: Both
+
+Invoke the dashboard-builder skill TWICE - once for deployment, once for local:
+
+**First: Deploy to Vercel**
+
+```
+@dashboard-builder
+
+Deploy the AI Visibility Dashboard to Vercel.
+
+Audit file: output/{brand-name}-audit-report-{date}.md
+Brand: {brand_name}
+Category: {category}
+Mode: deployment
+
+Execute deployment workflow.
+```
+
+Wait for deployment to complete, then:
+
+**Second: Start Local Server**
+
+```
+@dashboard-builder
+
+Run the AI Visibility Dashboard locally.
+
+Audit file: output/{brand-name}-audit-report-{date}.md
+Brand: {brand_name}
+Category: {category}
+Mode: local
+
+Execute local server workflow.
+```
+
+When both complete:
+```
+✅ Dashboard deployed and running locally!
+
+📊 Production URL: [URL from deployment]
+💻 Local URL: http://localhost:3000
+
+You can now:
+1. View production dashboard at the Vercel URL
+2. Develop/test locally at localhost:3000
+3. Share production URL with stakeholders
+
+Press Ctrl+C in terminal to stop the local server.
+```
+
+---
+
+### Option 4: Skip
 
 Continue with other options:
+```
+Dashboard setup skipped.
+
+Other options:
 - Deep-dive into any specific step?
 - Get implementation guides for top priorities?
+- Export to Airtable?
 - Schedule follow-up audit?
+```
 
 ---
 

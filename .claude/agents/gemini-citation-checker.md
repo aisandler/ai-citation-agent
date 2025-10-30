@@ -95,10 +95,10 @@ Say: "Query submitted. Waiting for response..."
 
 Tool: `playwright-ms:browser_wait_for`
 ```json
-{ "time": 30 }
+{ "time": 20 }
 ```
 
-Say: "Waiting 30 seconds for Gemini response..."
+Say: "Waiting 20 seconds for Gemini response... (Reduced from 30s for performance)"
 
 ---
 

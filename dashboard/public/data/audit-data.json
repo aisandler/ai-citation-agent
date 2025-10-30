@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "brand": "Jasper",
+    "category": "AI writing and marketing tools",
+    "date": "October 29, 2025",
+    "transformedAt": "2025-10-30T04:26:19.083Z"
+  },
+  "summary": {
+    "overallScore": 8.6,
+    "trustNodeCoverage": 15,
+    "trustNodeTotal": 21,
+    "trustNodePercentage": 71.4,
+    "citationQuality": 8.8,
+    "aiCitationRate": 100
+  },
+  "trustNodes": {
+    "categories": [
+      {
+        "name": "Knowledge Graphs",
+        "coverage": 0,
+        "total": 3,
+        "status": "⚠️ **CRITICAL GAP**"
+      },
+      {
+        "name": "Review Platforms",
+        "coverage": 5,
+        "total": 5,
+        "status": "✓ **EXCELLENT**"
+      },
+      {
+        "name": "Directories",
+        "coverage": 2,
+        "total": 4,
+        "status": "⚠️ **MODERATE**"
+      },
+      {
+        "name": "Company Profiles",
+        "coverage": 3,
+        "total": 3,
+        "status": "✓ **EXCELLENT**"
+      },
+      {
+        "name": "News & PR",
+        "coverage": 8,
+        "total": 10,
+        "status": "✓ **STRONG**"
+      },
+      {
+        "name": "Seed Sites",
+        "coverage": 4,
+        "total": 5,
+        "status": "✓ **STRONG**"
+      }
+    ],
+    "overall": {
+      "coverage": 15,
+      "total": 21,
+      "percentage": 71.4
+    }
+  },
+  "citationQuality": {
+    "overall": 8.8,
+    "dimensions": {
+      "authority": 8.7,
+      "dataStructure": 8.9,
+      "brandAlignment": 9.5,
+      "freshness": 8.6,
+      "crossLinks": 8.4
+    }
+  },
+  "llmRankings": [
+    {
+      "platform": "Perplexity",
+      "cited": "✓",
+      "position": "#1 (comparative)",
+      "citations": "24"
+    },
+    {
+      "platform": "ChatGPT",
+      "cited": "✓",
+      "position": "#1 (evaluative)",
+      "citations": "13"
+    },
+    {
+      "platform": "Gemini",
+      "cited": "✓",
+      "position": "#1 (evaluative)",
+      "citations": "0*"
+    }
+  ],
+  "priorities": [
+    {
+      "level": "Immediate",
+      "title": "Create Wikipedia Article",
+      "action": "",
+      "timeline": ""
+    },
+    {
+      "level": "Immediate",
+      "title": "Refresh TechCrunch & Target Forbes",
+      "action": "",
+      "timeline": ""
+    },
+    {
+      "level": "Immediate",
+      "title": "Maintain 2025 Listicle Presence",
+      "action": "",
+      "timeline": ""
+    }
+  ]
+}

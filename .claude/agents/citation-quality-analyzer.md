@@ -172,7 +172,42 @@ Citations found:
 3. https://www.capterra.com/p/jasper
 ```
 
-### Step 2: Analyze Each Citation
+### Step 1.5: Smart Sampling (OPTIMIZED - Performance Enhancement)
+
+**If citations > 10, apply intelligent sampling:**
+
+```
+Sampling Strategy:
+- ALWAYS include: High-authority sources (Wikipedia, major publications, tier 1 platforms) - ALL found
+- SAMPLE: Medium-authority sources (review platforms, directories) - Top 4-5 only
+- SAMPLE: Low-authority sources (blogs, niche sites) - Top 2 only
+- Target: ~10 citations maximum for analysis
+
+Priority ranking:
+1. Wikipedia, Wikidata, Knowledge graphs (ALL)
+2. Tier 1 publications (TechCrunch, Forbes, Bloomberg) (ALL)
+3. Major review platforms (G2, Capterra, Trustpilot) (Top 3)
+4. Directories (Crunchbase, Product Hunt, LinkedIn) (Top 2)
+5. Other sources (Top 2)
+```
+
+**If citations ≤ 10: Analyze all citations (no sampling needed)**
+
+**Sampling Example:**
+```
+Input: 18 citations found
+After sampling:
+- 2 knowledge graphs (Wikipedia, Wikidata) ← ALL
+- 2 tier 1 publications (TechCrunch, Forbes) ← ALL
+- 3 review platforms (G2, Capterra, Trustpilot) ← Top 3
+- 2 directories (Crunchbase, LinkedIn) ← Top 2
+- 1 other (company blog) ← Top 1
+= 10 citations to analyze (vs. 18)
+```
+
+**Performance gain:** Analyzing 10 vs. 20 citations saves ~3-5 minutes while maintaining representative quality assessment.
+
+### Step 2: Analyze Each Citation (Sampled Set)
 
 For each URL:
 

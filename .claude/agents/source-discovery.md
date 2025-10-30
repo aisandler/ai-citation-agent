@@ -68,92 +68,114 @@ For each source category, check if brand has presence and assess quality.
 
 ### Step 1: Knowledge Graphs
 
-**Check Wikipedia:**Search: "[Brand name] site:wikipedia.org"Log:
+**Batched Search (OPTIMIZED):**
+Search: "[Brand name] (site:wikipedia.org OR site:wikidata.org OR \"knowledge panel\")"
 
-Has article: Yes/No
-Quality: Stub/Start/Good/Featured
-Last updated: [Date]
-References count: [Number]
+From results, log each source:
 
+**Wikipedia:**
+- Has article: Yes/No
+- Quality: Stub/Start/Good/Featured (if present)
+- Last updated: [Date]
 
-**Check Wikidata:**Search: "[Brand name] site:wikidata.org"Log:
+**Wikidata:**
+- Has entity: Yes/No
+- Properties populated: [Count] (if present)
+- Identifiers linked: [List] (if present)
 
-Has entity: Yes/No
-Properties populated: [Count]
-Identifiers linked: [List - Crunchbase, LinkedIn, etc.]
-
-
-**Check Google Knowledge Panel:**Search: "[Brand name]" in GoogleLog:
-
-Has panel: Yes/No
-Information shown: [Description, links, etc.]
-Source: [Where Google pulled data from]
+**Google Knowledge Panel:**
+- Has panel: Yes/No
+- Information shown: [Description] (if present)
+- Source: [Where Google pulled data from]
 
 
 ---
 
 ### Step 2: Review Platforms
 
-For each platform (G2, Capterra, Trustpilot, etc.):Search: "[Brand name] site:[platform].com"Log:
+**Batched Search (OPTIMIZED):**
+Search: "[Brand name] (site:g2.com OR site:capterra.com OR site:trustpilot.com OR site:softwareadvice.com OR site:getapp.com) reviews"
 
-Has profile: Yes/No
-Reviews count: [Number]
-Average rating: [X]/5
-Last review date: [Date]
-Claimed/Managed: [Yes/No]
+From results, log each platform:
+
+**For each platform (G2, Capterra, Trustpilot, Software Advice, GetApp):**
+- Has profile: Yes/No
+- Reviews count: [Number] (if present)
+- Average rating: [X]/5 (if present)
+- Last review date: [Date] (if available)
+- Claimed/Managed: [Yes/No] (if determinable)
 
 
 ---
 
 ### Step 3: Industry Directories
 
-For each directory (Crunchbase, Product Hunt, etc.):Search: "[Brand name] site:[directory].com"Log:
+**Batched Search (OPTIMIZED):**
+Search: "[Brand name] (site:crunchbase.com OR site:producthunt.com OR site:angellist.com OR site:builtwith.com)"
 
-Has profile: Yes/No
-Profile completeness: [%]
-Last updated: [Date]
-Connections/Links: [Count]
+From results, log each directory:
+
+**For each (Crunchbase, Product Hunt, AngelList, Built With):**
+- Has profile: Yes/No
+- Profile completeness: [%] (if assessable)
+- Last updated: [Date] (if available)
+- Connections/Links: [Count] (if visible)
 
 
 ---
 
 ### Step 4: Company Profiles
 
-**LinkedIn:**Search: "[Brand name] site:linkedin.com/company"Log:
+**Batched Search (OPTIMIZED):**
+Search: "[Brand name] (site:linkedin.com/company OR site:bloomberg.com OR site:pitchbook.com) profile"
 
-Has page: Yes/No
-Followers: [Count]
-Employees listed: [Count]
-Posts frequency: [Posts per week]
-Company size: [Range]
+From results, log each:
 
+**LinkedIn:**
+- Has page: Yes/No
+- Followers: [Count] (if present)
+- Employees listed: [Count] (if visible)
+- Posts frequency: [Posts per week] (if assessable)
+- Company size: [Range] (if shown)
 
-**Crunchbase:**Already covered in directories, but note:
-
-Funding info: Yes/No
-Key people listed: Yes/No
-News mentions: [Count]
+**Bloomberg/Pitchbook:**
+- Has profile: Yes/No
+- Coverage level: [Basic/Full] (if present)
+- Funding info: Yes/No (note from Crunchbase if already found)
+- Key people listed: Yes/No
 
 
 ---
 
-### Step 5: News & PR CoverageSearch: "[Brand name]" in Google News (last 6 months)Log:
+### Step 5: News & PR Coverage
 
-Articles count: [Number]
-Publication quality: [Tier 1/2/3]
-Topics covered: [List main themes]
-Sentiment: [Positive/Neutral/Negative]
+**Optimized News Search:**
+Search: "[Brand name]" in Google News (last 6 months)
+
+**Quick Assessment (Don't fetch every article):**
+- Articles count: [Number - from search results count]
+- Top 3-5 publications: [List publication names only]
+- Publication quality: [Tier 1/2/3 based on top results]
+- Topics covered: [Main themes from headlines]
+- Sentiment: [Positive/Neutral/Negative from headlines]
+
+**Note:** Sample top 5 article headlines for context, don't fetch full articles
 
 
 ---
 
 ### Step 6: "Seed" Sites
 
-Check major tech/business publications:For each: TechCrunch, VentureBeat, Forbes, Inc.com, Fast Company:Search: "[Brand name] site:[publication].com"Log:
+**Batched Search (OPTIMIZED):**
+Search: "[Brand name] (site:techcrunch.com OR site:venturebeat.com OR site:forbes.com OR site:inc.com OR site:fastcompany.com)"
 
-Mentions count: [Number]
-Most recent: [Date]
-Article type: [News/Review/Profile/List]
+From results, log each publication:
+
+**For each (TechCrunch, VentureBeat, Forbes, Inc.com, Fast Company):**
+- Has coverage: Yes/No
+- Mentions count: [Number] (approximate from search results)
+- Most recent: [Date] (from search results)
+- Article type: [News/Review/Profile/List] (from top result)
 
 
 ---
@@ -453,15 +475,18 @@ This structured data will be parsed by the orchestrator and written to Airtable 
 
 ---
 
-## Use Web Search Extensively
+## Use Batched Web Searches (OPTIMIZED)
 
-Use web_search tool to check each source:
-- `"[Brand] site:wikipedia.org"`
-- `"[Brand] site:g2.com"`
-- `"[Brand] site:crunchbase.com"`
-- etc.
+**Use 6 batched searches instead of 20+ individual searches:**
 
-Be thorough. Check all sources systematically.
+1. **Knowledge Graphs:** `"[Brand] (site:wikipedia.org OR site:wikidata.org OR \"knowledge panel\")"`
+2. **Review Platforms:** `"[Brand] (site:g2.com OR site:capterra.com OR site:trustpilot.com OR site:softwareadvice.com OR site:getapp.com) reviews"`
+3. **Directories:** `"[Brand] (site:crunchbase.com OR site:producthunt.com OR site:angellist.com OR site:builtwith.com)"`
+4. **Company Profiles:** `"[Brand] (site:linkedin.com/company OR site:bloomberg.com OR site:pitchbook.com) profile"`
+5. **News/PR:** `"[Brand]"` in Google News (last 6 months) - sample top 5 headlines only
+6. **Seed Sites:** `"[Brand] (site:techcrunch.com OR site:venturebeat.com OR site:forbes.com OR site:inc.com OR site:fastcompany.com)"`
+
+**Performance improvement:** Reduces from 20+ API calls to 6 batched queries (~2.5 minute savings)
 
 ---
 
