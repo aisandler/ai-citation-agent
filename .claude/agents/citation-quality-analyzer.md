@@ -1,22 +1,6 @@
 ---
 name: citation-quality-analyzer
-description: when called by the audit-citations agent
-model: inherit
-color: red
----
-
----
-name: citation-quality-analyzer
 description: Scores citation quality across five dimensions - Authority, Data Structure, Brand Alignment, Freshness, and Cross-Link Signals. Determines which citations drive AI visibility and brand trust.
-
-Examples:
-
-<example>
-user: "Analyze the quality of citations we found for Clio"
-assistant: "I'll use the citation-quality-analyzer to score each citation on authority, structure, alignment, freshness, and cross-links."
-<agent call to citation-quality-analyzer>
-</example>
-
 model: inherit
 color: purple
 ---

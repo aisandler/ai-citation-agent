@@ -109,159 +109,220 @@ You receive a complete JSON payload from the audit orchestrator:
 }
 ```
 
-## Pre-Flight Check
+## Write Process - Using Airtable REST API
 
-Before writing, check if audit already exists:
+**IMPORTANT:** We use the Airtable REST API via Node.js, NOT MCP tools. You will write a Node.js script and execute it ONCE via the Bash tool.
 
-1. Use `mcp__airtable__search_records` to search Audit_Runs table for matching brand_name
-2. Filter results by audit_date (same day)
-3. If match found:
-   - Present to user: "Found existing audit for [Brand] on [Date]. Options:"
-     - **Update existing** - Overwrite audit record and all linked records
-     - **Create new** - Create new audit run (for comparison/versioning)
-     - **Cancel** - Abort write operation
-4. If no match: Proceed with creation
+**Environment:**
+- `AIRTABLE_API_KEY` - Available as environment variable
+- `AIRTABLE_BASE_ID` - Default: `appXQsoTkWGPqwaOx`
 
-## Write Process
+**Execution Strategy:**
+
+1. **Write a complete Node.js script** to `scripts/export-[brand-slug]-to-airtable.js`
+   - **MUST include dotenv setup** (see template below) to load API key from `.env.local`
+   - Include ALL audit data inline in the script (not external JSON)
+   - Use the `airtable` npm package (already installed in project)
+   - Create records in proper order: Audit_Runs → Trust_Nodes → Citations → LLM_Responses → Priorities
+   - Link all child records to audit run via `audit: [auditId]` field
+
+2. **Script template structure:**
+   ```javascript
+   #!/usr/bin/env node
+
+   import dotenv from 'dotenv';
+   import { fileURLToPath } from 'url';
+   import path from 'path';
+   import Airtable from 'airtable';
+
+   const __filename = fileURLToPath(import.meta.url);
+   const __dirname = path.dirname(__filename);
+
+   // Load environment variables from .env.local
+   dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+
+   // Configuration - loaded from .env.local
+   const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appXQsoTkWGPqwaOx';
+
+   if (!AIRTABLE_API_KEY) {
+     console.error('❌ AIRTABLE_API_KEY not set in .env.local');
+     console.error('Create a .env.local file with: AIRTABLE_API_KEY=your_key_here');
+     process.exit(1);
+   }
+
+   const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID);
+
+   // ... rest of script
+   ```
+
+3. **Execute the script ONCE** via Bash tool:
+   ```bash
+   node scripts/export-[brand-slug]-to-airtable.js
+   ```
+
+4. **DO NOT:**
+   - Run the script multiple times (causes duplicates)
+   - Create records via both script AND direct API calls
+   - Write partial data first then update later
+   - Hardcode API keys in the script (always use `.env.local`)
+
+**Critical:** The script should create ALL records in a single execution. Each audit should only be written to Airtable ONCE.
+
+**Environment Setup (for users sharing the repo):**
+- API key is loaded from `.env.local` (gitignored)
+- Users should create their own `.env.local` file with: `AIRTABLE_API_KEY=your_key_here`
+- No code changes needed when sharing repo - just add your own `.env.local`
 
 ### Step 1: Create Main Audit Record
 
-Use `mcp__airtable__create_record` to create Audit_Runs record:
+Use Airtable REST API to create Audit_Runs record via Bash tool executing Node.js:
 
 ```javascript
-{
-  "baseId": "appXQsoTkWGPqwaOx",
-  "tableId": "Audit_Runs",
-  "fields": {
-    "brand_name": "...",
-    "category": "...",
-    "audit_date": "...",
-    // ... all 20 fields from audit_run object
+import Airtable from 'airtable';
+
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY })
+  .base('appXQsoTkWGPqwaOx');
+
+const auditRecord = await base('Audit_Runs').create([{
+  fields: {
+    brand_name: "...",
+    category: "...",
+    audit_date: "...",
+    overall_score: 0.0,
+    trust_node_coverage: 0,
+    trust_node_percentage: 0.00,
+    citation_quality: 0.0,
+    ai_citation_rate: 0.00,
+    perplexity_rank: null,
+    chatgpt_rank: null,
+    gemini_rank: null,
+    perplexity_cited: false,
+    chatgpt_cited: false,
+    gemini_cited: false,
+    status: "Complete",
+    executive_summary: "...",
+    top_priority_1: "...",
+    top_priority_2: "...",
+    top_priority_3: "...",
+    next_audit_date: "..."
   }
-}
+}]);
+
+const auditId = auditRecord[0].id; // Capture for linking
 ```
 
-**Capture the returned record ID** - this is your `audit_id` for linking.
+**Capture the returned record ID** - this is your `audit_id` for linking all other records.
 
 ### Step 2: Create Trust Node Records
 
-For each trust node in `trust_nodes` array:
-
-Use `mcp__airtable__create_record`:
+Batch create trust node records (max 10 per batch):
 
 ```javascript
-{
-  "baseId": "appXQsoTkWGPqwaOx",
-  "tableId": "Trust_Nodes",
-  "fields": {
-    "category": "...",
-    "node_name": "...",
-    "present": true/false,
-    "quality_score": null or number,
-    "last_updated": "...",
-    "url": "...",
-    "notes": "...",
-    "audit": [audit_id]  // Link to Audit_Runs record
-  }
+for (let i = 0; i < trustNodes.length; i += 10) {
+  const batch = trustNodes.slice(i, i + 10).map(node => ({
+    fields: {
+      category: node.category,
+      node_name: node.node_name,
+      present: node.present,
+      quality_score: node.quality_score,
+      last_updated: node.last_updated,
+      url: node.url,
+      notes: node.notes,
+      audit: [auditId]  // Link to Audit_Runs record
+    }
+  }));
+
+  await base('Trust_Nodes').create(batch);
 }
 ```
 
-**Batch creation:** Create up to 10 records at a time for efficiency.
-
-**Track count:** Count successful vs failed creations.
+**Track count:** Count successful creations per batch.
 
 ### Step 3: Create Citation Records
 
-For each citation in `citations` array:
-
-Use `mcp__airtable__create_record`:
+Batch create citation records:
 
 ```javascript
-{
-  "baseId": "appXQsoTkWGPqwaOx",
-  "tableId": "Citations",
-  "fields": {
-    "source_url": "...",
-    "source_domain": "...",
-    "source_title": "...",
-    "authority_score": number,
-    "data_structure_score": number,
-    "brand_alignment_score": number,
-    "freshness_score": number,
-    "cross_link_score": number,
-    "overall_quality": number,
-    "publication_date": "...",
-    "cited_by_perplexity": true/false,
-    "cited_by_chatgpt": true/false,
-    "cited_by_gemini": true/false,
-    "notes": "...",
-    "audit": [audit_id]  // Link to Audit_Runs record
-  }
+for (let i = 0; i < citations.length; i += 10) {
+  const batch = citations.slice(i, i + 10).map(citation => ({
+    fields: {
+      source_url: citation.source_url,
+      source_domain: citation.source_domain,
+      source_title: citation.source_title,
+      authority_score: citation.authority_score,
+      data_structure_score: citation.data_structure_score,
+      brand_alignment_score: citation.brand_alignment_score,
+      freshness_score: citation.freshness_score,
+      cross_link_score: citation.cross_link_score,
+      overall_quality: citation.overall_quality,
+      publication_date: citation.publication_date,
+      cited_by_perplexity: citation.cited_by_perplexity,
+      cited_by_chatgpt: citation.cited_by_chatgpt,
+      cited_by_gemini: citation.cited_by_gemini,
+      notes: citation.notes,
+      audit: [auditId]  // Link to Audit_Runs record
+    }
+  }));
+
+  await base('Citations').create(batch);
 }
 ```
-
-**Track count:** Count successful creations.
 
 ### Step 4: Create LLM Response Records
 
-For each response in `llm_responses` array:
-
-Use `mcp__airtable__create_record`:
+Create all LLM response records:
 
 ```javascript
-{
-  "baseId": "appXQsoTkWGPqwaOx",
-  "tableId": "LLM_Responses",
-  "fields": {
-    "platform": "...",
-    "query_type": "...",
-    "query_text": "...",
-    "brand_cited": true/false,
-    "brand_rank": null or number,
-    "brand_context": "...",
-    "citations_found": number,
-    "competitor_1": "...",
-    "competitor_1_rank": null or number,
-    "competitor_2": "...",
-    "competitor_2_rank": null or number,
-    "competitor_3": "...",
-    "competitor_3_rank": null or number,
-    "response_summary": "...",
-    "audit": [audit_id]  // Link to Audit_Runs record
+const llmRecords = llmResponses.map(response => ({
+  fields: {
+    platform: response.platform,
+    query_type: response.query_type,
+    query_text: response.query_text,
+    brand_cited: response.brand_cited,
+    brand_rank: response.brand_rank,
+    brand_context: response.brand_context,
+    citations_found: response.citations_found,
+    competitor_1: response.competitor_1,
+    competitor_1_rank: response.competitor_1_rank,
+    competitor_2: response.competitor_2,
+    competitor_2_rank: response.competitor_2_rank,
+    competitor_3: response.competitor_3,
+    competitor_3_rank: response.competitor_3_rank,
+    response_summary: response.response_summary,
+    audit: [auditId]  // Link to Audit_Runs record
   }
-}
-```
+}));
 
-**Track count:** Count successful creations.
+await base('LLM_Responses').create(llmRecords);
+```
 
 ### Step 5: Create Priority Records
 
-For each priority in `priorities` array:
-
-Use `mcp__airtable__create_record`:
+Create all priority records:
 
 ```javascript
-{
-  "baseId": "appXQsoTkWGPqwaOx",
-  "tableId": "Priorities",
-  "fields": {
-    "priority_level": "...",
-    "title": "...",
-    "description": "...",
-    "impact": "...",
-    "effort": "...",
-    "timeline": "...",
-    "status": "Not Started",
-    "assigned_to": null,
-    "due_date": null,
-    "completed_date": null,
-    "notes": "...",
-    "audit": [audit_id]  // Link to Audit_Runs record
+const priorityRecords = priorities.map(priority => ({
+  fields: {
+    priority_level: priority.priority_level,
+    title: priority.title,
+    description: priority.description,
+    impact: priority.impact,
+    effort: priority.effort,
+    timeline: priority.timeline,
+    status: priority.status,
+    assigned_to: priority.assigned_to,
+    due_date: priority.due_date,
+    completed_date: priority.completed_date,
+    notes: priority.notes,
+    audit: [auditId]  // Link to Audit_Runs record
   }
-}
+}));
+
+await base('Priorities').create(priorityRecords);
 ```
 
-**Track count:** Count successful creations.
+**Track counts:** Report successful creations for each table.
 
 ## Handling Partial Data / Failures
 

@@ -1,22 +1,6 @@
 ---
 name: source-discovery
-description: When called by audit-citation agent.
-model: inherit
-color: cyan
----
-
-yaml---
-name: source-discovery
 description: Discovers and maps where a brand exists across knowledge graphs, review platforms, directories, news/PR, company profiles, and "seed" sites that LLMs ingest. This identifies trust node coverage gaps.
-
-Examples:
-
-<example>
-user: "Check where Jasper exists across the source ecosystem"
-assistant: "I'll use the source-discovery agent to audit Jasper's presence across knowledge graphs, review platforms, directories, and seed sites."
-<agent call to source-discovery>
-</example>
-
 model: inherit
 color: cyan
 ---
