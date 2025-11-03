@@ -30,6 +30,30 @@ You'll be prompted for:
 
 The audit takes ~8-10 minutes and generates a comprehensive report with strategic recommendations.
 
+### Batch Audits from Airtable
+
+**NEW:** Automate competitive intelligence by queuing audits from an Airtable base:
+
+```bash
+# 1. Read competitors from source Airtable
+node scripts/read-audit-queue.js
+
+# 2. Run audit for each competitor
+/agents:audit-citations  # Use inputs from queue
+
+# 3. Sync results back to source base
+node scripts/sync-audit-results.js
+```
+
+**What this enables:**
+- Queue multiple competitors in Airtable "1_Basic Info" table
+- Run audits in batch mode
+- Auto-sync scores to "4_Marketing Presence" table
+- Track audit history, rankings, and next audit dates
+- Compare competitors side-by-side
+
+See [docs/AIRTABLE_INTEGRATION.md](docs/AIRTABLE_INTEGRATION.md) for complete guide.
+
 ## 📊 Example Output
 
 See [jasper-citation-quality-scorecard.md](jasper-citation-quality-scorecard.md) for a complete example audit of Jasper AI in the "AI marketing tools" category.
@@ -43,8 +67,10 @@ See [jasper-citation-quality-scorecard.md](jasper-citation-quality-scorecard.md)
 
 ## 🛠️ Architecture
 
-### Orchestrator
-- **`/agents:audit-citations`** - Main command that coordinates the full 4-step methodology
+### Orchestrators
+
+- **`/agents:audit-citations`** - Main command that coordinates the full 4-step methodology for single brand audits
+- **`/agents:batch-audit`** - Batch processing orchestrator for running multiple audits from Airtable queue
 
 ### Specialized Agents
 
