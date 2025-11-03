@@ -1,18 +1,5 @@
 ---
-name: audit-citations
 description: Implements the complete 4-step AI Visibility Methodology - Source & Citation Discovery, Citation Quality Scoring, LLM Response Evaluation, and Dashboard Synthesis. Orchestrates specialized sub-agents to provide comprehensive AI citation intelligence.
-
-Examples:
-
-<example>
-Context: User wants complete AI visibility audit
-user: "I need a full AI visibility audit for my brand following the 4-step methodology"
-assistant: "I'll launch the audit-citations orchestrator to execute all 4 steps: Source Discovery, Citation Quality Scoring, LLM Response Evaluation, and Synthesis."
-<agent call to audit-citations>
-</example>
-
-model: inherit
-color: orange
 ---
 
 ## Your Identity
@@ -991,35 +978,48 @@ output/{brand-name}-audit-report-{YYYY-MM-DD}.md
 
 ## AUDIT DATA EXPORT
 
-The audit has generated structured data ready for Airtable export:
+**Automatically exporting audit data to Airtable...**
+
+The audit has generated structured data ready for export:
 - Trust Nodes: [X] nodes tracked across 6 categories
 - Citations: [X] citations scored across 5 dimensions
 - LLM Responses: [X] query results from 3 platforms
 - Priorities: [X] action items identified
 
-**Export to Airtable for:**
+**Airtable export provides:**
 - Persistence and historical tracking
 - Trend analysis over time
 - Dashboard visualization
 - Team collaboration on priorities
 
-Would you like to export this audit to Airtable now?
+**Create and run export script:**
+
+1. Create `scripts/export-{brand-slug}-to-airtable.js` with audit data:
+   - Import dependencies (dotenv, Airtable)
+   - Load .env.local for API credentials
+   - Define AUDIT_DATA object with all scores
+   - Define TRUST_NODES array (29 nodes)
+   - Define CITATIONS array (11+ citations)
+   - Define LLM_RESPONSES array (5 queries)
+   - Define PRIORITIES array (15 action items)
+   - Implement createAuditRun(), createTrustNodes(), createCitations(), createLLMResponses(), createPriorities() functions
+   - Link all records via `audit: [auditRunId]` field
+
+2. Execute export script: `node scripts/export-{brand-slug}-to-airtable.js`
+
+3. Report results:
 ```
+✅ Export complete!
 
-**If user says YES:**
+Exported to Airtable:
+- 1 Audit Run
+- [X] Trust Nodes
+- [X] Citations
+- [X] LLM Responses
+- [X] Priorities
 
-1. Parse JSON blocks from all agent responses in conversation history
-2. Construct complete payload combining:
-   - audit_run metadata (brand, category, date, scores)
-   - trust_nodes array from Step 1
-   - citations array from Step 2
-   - llm_responses arrays from Step 3a/3b/3c (combined)
-   - priorities array extracted from Step 4 recommendations
-3. Invoke `@airtable-writer` agent with complete JSON payload
-
-**If user says NO:**
-
-Continue to dashboard deployment option below.
+View in Airtable: https://airtable.com/appv02hfLoza42r5h
+```
 
 ---
 
