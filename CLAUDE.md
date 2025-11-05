@@ -17,7 +17,7 @@ Prompts for: brand name, category context, optional content URLs. Takes ~8-10 mi
 
 **Outputs:**
 - Markdown report saved to `output/{brand}-audit-report-{date}.md` (required for downstream processing)
-- Structured data exported to Airtable (optional, prompted at end)
+- Structured data automatically exported to Airtable (for persistence and trend analysis)
 
 ### Manual Cleanup (Browser Issues)
 If browser agents encounter endless tabs:

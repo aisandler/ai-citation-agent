@@ -323,26 +323,31 @@ node scripts/test-airtable-connection.js
 
 #### During Audit
 
-After the audit completes, the orchestrator will prompt:
+After the audit completes (Step 4 synthesis), data is **automatically exported to Airtable** without requiring user confirmation.
 
-```
-Would you like to export this audit to Airtable now?
-```
+**Export process:**
+1. Orchestrator collects structured JSON from all agent responses (Steps 1-4)
+2. Constructs complete payload with audit metadata and calculated metrics
+3. Automatically invokes `@airtable-writer` agent
+4. Writer creates records across all 5 tables atomically
+5. Displays summary with record counts and Airtable view URL
 
-**If you answer YES:**
-1. Orchestrator collects structured JSON from all agent responses
-2. Constructs complete payload with audit metadata
-3. Invokes `@airtable-writer` agent
-4. Writer creates records across all 5 tables
-5. Returns summary with record counts and Airtable view URL
+**Why automatic?**
+- Ensures all audit data is persisted for historical tracking
+- Enables trend analysis over time (comparing audits 60+ days apart)
+- Provides data foundation for dashboard visualizations
+- Allows team collaboration on priorities
 
-**If you answer NO:**
-- Audit data remains in the session
-- You can manually invoke `@airtable-writer` later with saved data
+**What gets exported:**
+- 1 Audit Run record (overall metrics, scores, executive summary)
+- Trust Nodes records (presence/absence across 29 nodes)
+- Citations records (quality scores across 5 dimensions)
+- LLM Responses records (rankings from 3 platforms)
+- Priorities records (action items with impact/effort/timeline)
 
-#### Manual Write
+#### Retroactive Export
 
-If you want to re-export or update an existing audit:
+If you want to export an old audit report that wasn't exported during its original run:
 
 ```bash
 @airtable-writer

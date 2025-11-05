@@ -978,21 +978,32 @@ output/{brand-name}-audit-report-{YYYY-MM-DD}.md
 
 ## AUDIT DATA EXPORT
 
-**Automatically exporting audit data to Airtable...**
+**IMPORTANT: Proceed automatically - DO NOT ask user for confirmation.**
 
-The audit has generated structured data ready for export:
+The audit data will now be exported to Airtable for persistence and tracking.
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 EXPORTING TO AIRTABLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Automatically exporting audit data for historical tracking...
+
+Audit data generated:
 - Trust Nodes: [X] nodes tracked across 6 categories
 - Citations: [X] citations scored across 5 dimensions
 - LLM Responses: [X] query results from 3 platforms
 - Priorities: [X] action items identified
 
-**Airtable export provides:**
-- Persistence and historical tracking
-- Trend analysis over time
-- Dashboard visualization
-- Team collaboration on priorities
+Exporting to Airtable tables:
+→ Audit_Runs (overall metrics)
+→ Trust_Nodes (presence tracking)
+→ Citations (quality scores)
+→ LLM_Responses (platform data)
+→ Priorities (action items)
+```
 
-**Invoke @airtable-writer agent:**
+**Invoke @airtable-writer agent immediately (no user confirmation needed):**
 
 ```
 @airtable-writer
@@ -1036,25 +1047,28 @@ The agent will:
 4. Report records created per table
 ```
 
-After export completes:
-```
-✅ Export complete!
+**Wait for @airtable-writer to complete, then display:**
 
-Exported to Airtable:
-- 1 Audit Run
-- [X] Trust Nodes
-- [X] Citations
-- [X] LLM Responses
-- [X] Priorities
+```
+✅ Airtable Export Complete!
+
+Records created:
+- 1 Audit Run (overall metrics)
+- [X] Trust Nodes (presence tracking)
+- [X] Citations (quality scores)
+- [X] LLM Responses (platform rankings)
+- [X] Priorities (action items)
 
 View in Airtable: https://airtable.com/[base_id]
 ```
+
+**Proceed immediately to Dashboard Deployment section (no pause).**
 
 ---
 
 ## DASHBOARD DEPLOYMENT
 
-After the audit is complete and report is saved, offer dashboard deployment:
+**Now offer dashboard deployment options to the user:**
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

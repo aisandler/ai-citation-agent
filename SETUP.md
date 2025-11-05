@@ -180,7 +180,7 @@ Follow the prompts:
 
 The audit takes ~8-10 minutes and generates:
 - Markdown report in `output/[brand]-audit-report-[date].md`
-- Data exported to Airtable (if you opt-in at the end)
+- Data automatically exported to Airtable for tracking and trend analysis
 
 ## Step 6: Dashboard Setup (Optional)
 
