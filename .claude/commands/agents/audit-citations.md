@@ -1246,15 +1246,150 @@ Press Ctrl+C in terminal to stop the local server.
 
 ### Option 4: Skip
 
-Continue with other options:
 ```
-Dashboard setup skipped.
+Dashboard setup skipped. Continuing to next step...
+```
 
-Other options:
-- Deep-dive into any specific step?
-- Get implementation guides for top priorities?
-- Export to Airtable?
-- Schedule follow-up audit?
+**Proceed immediately to Optional Step 5 (Prompt Generation).**
+
+---
+
+## OPTIONAL STEP 5: PROMPT GENERATION
+
+**After dashboard deployment choice, offer prompt generation:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 OPTIONAL: AI VISIBILITY PROMPT GENERATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your audit has identified gaps and opportunities in AI visibility.
+
+The Prompt Generator can create up to 200 targeted test queries based on your audit findings:
+
+✓ Evaluative queries ("What are the top [category] in 2025?")
+✓ Comparative queries ("[Brand] vs [Competitor] for [use case]")
+✓ Use-case specific ("[Category] for [specific workflow]")
+✓ Brand-specific ("[Brand] reviews and ratings")
+✓ Feature queries ("[Category] with [specific feature]")
+✓ Long-tail variants (hyper-specific scenarios)
+
+**These prompts help you:**
+- Monitor AI visibility improvements over time
+- Test strategic recommendations from this audit
+- Track competitive positioning across platforms
+- Identify new citation opportunities
+
+**Would you like to generate a comprehensive prompt set?**
+
+1. ✅ **Yes** - Generate 150-200 prompts tailored to audit findings
+2. ⏭️  **Skip** - Complete audit without prompt generation
+
+Enter your choice (1-2):
+```
+
+Wait for user selection.
+
+---
+
+### Option 1: Generate Prompts
+
+Invoke the prompt-generator agent:
+
+```
+Generating AI visibility prompt taxonomy based on audit findings...
+
+@prompt-generator
+
+Brand: {brand_name}
+Category: {category}
+
+Audit Context:
+- Overall AI Visibility Score: {overall_score}/10
+- Trust Node Coverage: {trust_node_coverage}/29 ({trust_node_percentage}%)
+- Citation Quality: {citation_quality}/10
+- AI Citation Rate: {ai_citation_rate}%
+- Current Rankings: Perplexity #{perplexity_rank}, ChatGPT #{chatgpt_rank}, Gemini #{gemini_rank}
+
+Key Gaps Identified (from Step 1-4):
+{Extract top 3-5 gaps from audit findings}
+
+Competitors Mentioned (from Step 3):
+{List competitors from LLM visibility results}
+
+Strategic Priorities (from Step 4):
+{List top 3 priorities from recommendations}
+
+Generate a comprehensive prompt taxonomy (150-200 prompts) that:
+1. Addresses identified gaps from the audit
+2. Tests competitive positioning against {competitors}
+3. Covers all 6 query categories (Evaluative, Comparative, Use-Case, Brand-Specific, Feature-Specific, Long-Tail)
+4. Includes testing guidelines and prioritization
+5. Creates actionable monitoring framework
+
+Output Format: Complete markdown report with:
+- Executive summary of prompt distribution
+- All 6 prompt categories with testable queries
+- Testing protocol and success metrics
+- Prioritization guidance (high/medium/low priority prompts)
+```
+
+**Wait for @prompt-generator to complete, then save output:**
+
+Use the Write tool to save the complete prompt taxonomy to:
+```
+output/{brand-name}-prompt-taxonomy-{YYYY-MM-DD}.md
+```
+
+**After saving:**
+```
+✅ Prompt Taxonomy Generated!
+
+File saved: output/{brand-name}-prompt-taxonomy-{date}.md
+
+Your prompt set includes:
+- [X] Evaluative queries
+- [X] Comparative queries (testing vs {competitors})
+- [X] Use-case specific queries
+- [X] Brand-specific queries
+- [X] Feature queries
+- [X] Long-tail variants
+
+Total Prompts: [X]/200
+
+**Next Steps:**
+1. Review prompt taxonomy file for comprehensive query list
+2. Test 20-30 high-priority prompts weekly across Perplexity, ChatGPT, Gemini
+3. Track position, citations, and competitor mentions
+4. Re-audit in 60 days to measure progress against recommendations
+```
+
+---
+
+### Option 2: Skip Prompt Generation
+
+```
+Prompt generation skipped.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ AUDIT COMPLETE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Deliverables:
+✓ Audit Report: output/{brand-name}-audit-report-{date}.md
+✓ Airtable Export: {X} records across 5 tables
+{✓ Dashboard: [URL] (if deployed)}
+{✓ Local Dashboard: http://localhost:3000 (if running)}
+
+**Recommended Next Steps:**
+1. Review strategic priorities in audit report
+2. Implement top 3 immediate action items
+3. Monitor Airtable for historical trend data
+4. Schedule 60-day follow-up audit to measure progress
+
+**Re-audit Recommended:** {next_audit_date}
+
+Thank you for using the AI Citation Agent! 🎯
 ```
 
 ---

@@ -43,6 +43,7 @@ The project uses a hierarchical agent system:
    - `perplexity-citation-checker` - API-based query taxonomy
    - `chatgpt-citation-checker` - Browser automation with Playwright
    - `gemini-citation-checker` - Browser automation with Playwright
+   - `prompt-generator` - Generates 150-200 test queries for ongoing visibility monitoring (optional Step 5)
 
 3. **Skills** provide reusable utilities:
    - `playwright-cleanup` - Browser process management (prevents tab loops)

@@ -90,6 +90,7 @@ See [jasper-citation-quality-scorecard.md](jasper-citation-quality-scorecard.md)
 4. **`chatgpt-citation-checker`** - Browser automation for ChatGPT citation tracking
 5. **`gemini-citation-checker`** - Browser automation for Gemini citation tracking
 6. **`airtable-writer`** - Persists audit data to Airtable across 5 related tables
+7. **`prompt-generator`** - Generates 150-200 targeted test queries based on audit findings for ongoing AI visibility monitoring
 
 ### Skills
 
@@ -234,6 +235,34 @@ Combines all data into:
 - Long-term vision (6-12 months)
 
 **Output:** Actionable roadmap with specific metrics and timelines
+
+### Step 5: Prompt Generation (Optional)
+
+After completing the 4-step audit, you can optionally generate a comprehensive prompt taxonomy for ongoing AI visibility monitoring.
+
+**What it does:**
+- Generates 150-200 targeted test queries based on audit findings
+- Covers 6 query categories: Evaluative, Comparative, Use-Case, Brand-Specific, Feature-Specific, Long-Tail
+- Tailors prompts to address gaps identified in audit
+- Includes competitor comparisons and use-case scenarios
+- Provides testing guidelines and prioritization (high/medium/low priority)
+
+**Query categories:**
+1. **Evaluative** - "What are the top [category] in 2025?"
+2. **Comparative** - "[Brand] vs [Competitor] for [use case]"
+3. **Use-Case Specific** - "[Category] for [specific workflow/pain point]"
+4. **Brand-Specific** - "[Brand] reviews and ratings"
+5. **Feature-Specific** - "[Category] with [specific feature]"
+6. **Long-Tail Variants** - Hyper-specific scenarios with multiple constraints
+
+**Why use it:**
+- Monitor AI visibility improvements over time
+- Test strategic recommendations from audit
+- Track competitive positioning across platforms
+- Identify new citation opportunities
+- Measure progress on 60-day re-audit
+
+**Output:** Markdown file with 150-200 testable queries, testing protocol, success metrics, and prioritization guidance
 
 ## 📊 Airtable Integration
 
