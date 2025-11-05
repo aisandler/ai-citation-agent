@@ -83,11 +83,27 @@ This creates:
 
 Tables Created:
 1. ✓ Audit_Runs (20 fields)
-2. ✓ Trust_Nodes (8 fields)
+2. ✓ Trust_Nodes (7 fields)
 3. ✓ Citations (15 fields)
-4. ✓ LLM_Responses (15 fields)
-5. ✓ Priorities (12 fields)
+4. ✓ LLM_Responses (16 fields)
+5. ✓ Priorities (11 fields)
+
+⚠️  IMPORTANT: Clean up default table
+If this was a fresh base, Airtable created a default "Table 1"
+You can safely delete it
 ```
+
+### Delete the Default "Table 1"
+
+If you created a fresh base, Airtable automatically includes a default "Table 1" with sample fields. **Delete it after setup completes:**
+
+1. Open your base in Airtable (web browser)
+2. Find "Table 1" in the left sidebar
+3. Click the dropdown arrow next to "Table 1"
+4. Select "Delete table"
+5. Confirm deletion
+
+This table is not used by the AI Citation Agent and can be safely removed.
 
 ## Step 4: Configure MCP Servers
 

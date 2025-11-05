@@ -747,8 +747,9 @@ Schema ready for:
 
 Next Steps:
 1. Note your Base ID for the airtable-writer agent
-2. Test with sample data
-3. Build dashboard connected to this schema
+2. **Delete the default "Table 1"** that Airtable creates in fresh bases (not used by this system)
+3. Test with sample data
+4. Build dashboard connected to this schema
 ```
 
 ---

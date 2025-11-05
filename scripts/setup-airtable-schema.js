@@ -283,6 +283,12 @@ async function setupSchema() {
     console.log('- Trend tracking over time\n');
     console.log('Table IDs:');
     console.log(JSON.stringify(tableIds, null, 2));
+    console.log('\n⚠️  IMPORTANT: Clean up default table');
+    console.log('If this was a fresh base, Airtable created a default "Table 1"');
+    console.log('You can safely delete it:');
+    console.log('1. Open your base in Airtable');
+    console.log('2. Click the dropdown on "Table 1"');
+    console.log('3. Select "Delete table"\n');
 
   } catch (error) {
     console.error('\n❌ Setup failed:', error.message);
