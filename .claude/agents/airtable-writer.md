@@ -471,7 +471,31 @@ try {
 
 ## Field Name Mapping
 
-**CRITICAL:** Field names must match the Airtable schema EXACTLY. Common mistakes:
+**CRITICAL:** Use this EXACT field name table when creating export scripts. Copy these names character-for-character:
+
+### Citations Table - Required Field Names
+
+| Use This Exact Name ✅ | NOT This ❌ |
+|----------------------|-------------|
+| `source_url` | sourceUrl, url |
+| `source_domain` | sourceDomain, domain |
+| `source_title` | sourceTitle, title |
+| `source_type` | sourceType, type, category |
+| `authority_score` | authority, authorityScore |
+| `data_structure_score` | data_structure, dataStructure, structure_score |
+| `brand_alignment_score` | brand_alignment, brandAlignment, alignment_score |
+| `freshness_score` | freshness, freshnessScore |
+| `cross_link_score` | cross_links, crosslink_score, crosslinks, crosslink |
+| `overall_quality` | overall, composite_score, quality, overall_score |
+| `publication_date` | publicationDate, date, published |
+| `cited_by_perplexity` | perplexity_cited, citedByPerplexity |
+| `cited_by_chatgpt` | chatgpt_cited, citedByChatGPT |
+| `cited_by_gemini` | gemini_cited, citedByGemini |
+| `notes` | note, comments |
+
+**STOP AND VERIFY:** Before writing any export script, confirm EVERY field name matches the left column above.
+
+### Common Mistakes to Avoid:
 
 ❌ **WRONG** (missing `_score` suffix):
 - `authority` → Should be `authority_score`
@@ -493,10 +517,52 @@ try {
 }
 ```
 
-**Verify field names** before creating export script:
-1. Check `scripts/setup-airtable-schema.js` for exact field names
-2. Run `node scripts/verify-citations-schema.js` to confirm schema
-3. Match your export data structure to the schema EXACTLY
+### Trust_Nodes Table - Required Field Names
+
+| Use This Exact Name ✅ | NOT This ❌ |
+|----------------------|-------------|
+| `node_name` | nodeName, name, trust_node |
+| `category` | type, node_category |
+| `present` | exists, is_present, found |
+| `quality_score` | quality, score |
+| `last_updated` | lastUpdated, updated, date |
+| `url` | link, website |
+| `notes` | note, comments |
+
+### LLM_Responses Table - Required Field Names
+
+| Use This Exact Name ✅ | NOT This ❌ |
+|----------------------|-------------|
+| `query_id` | queryId, id, query_identifier |
+| `platform` | llm, ai_platform |
+| `query_type` | queryType, type |
+| `query_text` | queryText, text, query |
+| `brand_cited` | brandCited, cited, is_cited |
+| `brand_rank` | brandRank, rank, position |
+
+### Priorities Table - Required Field Names
+
+| Use This Exact Name ✅ | NOT This ❌ |
+|----------------------|-------------|
+| `title` | name, priority_title |
+| `priority_level` | priorityLevel, level, urgency |
+| `description` | desc, details |
+| `impact` | priority_impact |
+| `effort` | priority_effort |
+
+**MANDATORY PRE-EXPORT VALIDATION:**
+
+Before running your export script, perform these checks:
+
+1. **Visual inspection**: Review your data object field names against the tables above
+2. **Count check**:
+   - Citations data object: 15 fields (source_url through notes)
+   - Plus 1 audit link field added during write = 16 total in Airtable
+3. **Test with one record**: Create just the audit run + 1 citation to verify field names work
+4. **Run schema verifier**: `node scripts/verify-citations-schema.js` to confirm schema matches
+5. **Copy-paste verification**: For each field, copy the exact name from the table above (left column)
+
+If ANY field name doesn't match the table exactly, STOP and fix it before proceeding.
 
 ---
 
