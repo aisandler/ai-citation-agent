@@ -61,3 +61,6 @@ scripts/archive/examples/*
 output/*
 !output/*-audit-report-*.md
 !output/.gitkeep
+
+# Scripts - ignore per-brand export scripts (generated during debugging)
+scripts/export-*-to-airtable.js
