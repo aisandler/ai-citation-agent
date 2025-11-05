@@ -84,7 +84,7 @@ This creates:
 Tables Created:
 1. ✓ Audit_Runs (20 fields)
 2. ✓ Trust_Nodes (7 fields)
-3. ✓ Citations (15 fields)
+3. ✓ Citations (16 fields)
 4. ✓ LLM_Responses (16 fields)
 5. ✓ Priorities (11 fields)
 

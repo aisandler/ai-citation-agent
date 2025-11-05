@@ -148,6 +148,15 @@ Compare across multiple citations to find inconsistencies.
 
 From LLM response evaluation, you'll have a list of sources that were cited.
 
+**For each citation, determine the source_type** based on the domain:
+- **Review Platform:** G2, Capterra, Trustpilot, Software Advice, GetApp, etc.
+- **Directory:** Crunchbase, Product Hunt, AngelList, BuiltWith, etc.
+- **Company Profile:** LinkedIn, Bloomberg, PitchBook, etc.
+- **News & PR:** TechCrunch, VentureBeat, Forbes, Inc, Fast Company, press releases, news sites
+- **Seed Site:** High-authority tech/business publications, thought leadership platforms
+- **Brand Website:** Official brand domain (e.g., jasper.ai, brand.com)
+- **Other:** Doesn't fit above categories (social media, forums, blogs)
+
 Example input:
 ```
 Citations found:
@@ -341,6 +350,7 @@ After generating the full markdown report above, append the following JSON data 
         "source_url": "https://example.com/brand-article",
         "source_domain": "example.com",
         "source_title": "Full article title from the page",
+        "source_type": "News & PR",
         "authority_score": 8.5,
         "data_structure_score": 7.0,
         "brand_alignment_score": 9.0,
@@ -357,6 +367,7 @@ After generating the full markdown report above, append the following JSON data 
         "source_url": "https://g2.com/products/brand-name",
         "source_domain": "g2.com",
         "source_title": "BrandName Reviews and Pricing 2024",
+        "source_type": "Review Platform",
         "authority_score": 9.0,
         "data_structure_score": 9.5,
         "brand_alignment_score": 10.0,

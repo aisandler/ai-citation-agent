@@ -188,6 +188,7 @@ async function setupSchema() {
         { name: 'source_url', type: 'url', description: 'URL of the citation' },
         { name: 'source_domain', type: 'singleLineText', description: 'Domain extracted from URL' },
         { name: 'source_title', type: 'singleLineText', description: 'Page or article title' },
+        { name: 'source_type', type: 'singleSelect', options: { choices: [{ name: 'Review Platform' }, { name: 'Directory' }, { name: 'Company Profile' }, { name: 'News & PR' }, { name: 'Seed Site' }, { name: 'Brand Website' }, { name: 'Other' }] }, description: 'Type of source' },
         { name: 'authority_score', type: 'number', options: { precision: 1 }, description: 'Authority dimension (0-10)' },
         { name: 'data_structure_score', type: 'number', options: { precision: 1 }, description: 'Data structure dimension (0-10)' },
         { name: 'brand_alignment_score', type: 'number', options: { precision: 1 }, description: 'Brand alignment dimension (0-10)' },
@@ -272,10 +273,10 @@ async function setupSchema() {
     console.log('Tables Created:');
     console.log('1. ✓ Audit_Runs (20 fields) - Main audit records');
     console.log('2. ✓ Trust_Nodes (7 fields) - Trust node tracking');
-    console.log('3. ✓ Citations (15 fields) - Citation quality');
+    console.log('3. ✓ Citations (16 fields) - Citation quality');
     console.log('4. ✓ LLM_Responses (16 fields) - Platform responses');
     console.log('5. ✓ Priorities (11 fields) - Action items\n');
-    console.log('Total Fields: 69');
+    console.log('Total Fields: 70');
     console.log('Relationships: All tables linked to Audit_Runs\n');
     console.log('Schema ready for:');
     console.log('- Data persistence from audit agent');
