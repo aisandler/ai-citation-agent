@@ -167,8 +167,8 @@ async function setupSchema() {
       'Trust_Nodes',
       'Tracks presence and quality of individual trust nodes over time',
       [
+        { name: 'node_name', type: 'singleLineText', description: 'Specific trust node (e.g., Wikipedia, G2, TechCrunch)' },
         { name: 'category', type: 'singleSelect', options: { choices: [{ name: 'Knowledge Graph' }, { name: 'Review Platform' }, { name: 'Directory' }, { name: 'Company Profile' }, { name: 'News & PR' }, { name: 'Seed Site' }] }, description: 'Trust node category' },
-        { name: 'node_name', type: 'singleSelect', options: { choices: [{ name: 'Wikipedia' }, { name: 'Wikidata' }, { name: 'Google Knowledge Panel' }, { name: 'G2' }, { name: 'Capterra' }, { name: 'Trustpilot' }, { name: 'Software Advice' }, { name: 'GetApp' }, { name: 'Crunchbase' }, { name: 'Product Hunt' }, { name: 'AngelList' }, { name: 'Built With' }, { name: 'LinkedIn Company' }, { name: 'Bloomberg' }, { name: 'Google News' }, { name: 'TechCrunch' }, { name: 'VentureBeat' }, { name: 'Forbes' }, { name: 'Inc.com' }, { name: 'Fast Company' }] }, description: 'Specific trust node' },
         { name: 'present', type: 'checkbox', options: { icon: 'check', color: 'greenBright' }, description: 'Trust node exists for brand' },
         { name: 'quality_score', type: 'number', options: { precision: 1 }, description: 'Quality assessment if present (0-10)' },
         { name: 'last_updated', type: 'date', options: { dateFormat: { name: 'us', format: 'M/D/YYYY' } }, description: 'When trust node was last updated' },
@@ -210,6 +210,7 @@ async function setupSchema() {
       'LLM_Responses',
       'Detailed LLM response data for trend analysis and competitive intelligence',
       [
+        { name: 'query_id', type: 'singleLineText', description: 'Unique query identifier (auto-generated)' },
         { name: 'platform', type: 'singleSelect', options: { choices: [{ name: 'Perplexity', color: 'greenBright' }, { name: 'ChatGPT', color: 'blueBright' }, { name: 'Gemini', color: 'purpleBright' }] }, description: 'AI platform' },
         { name: 'query_type', type: 'singleSelect', options: { choices: [{ name: 'Evaluative' }, { name: 'Comparative' }, { name: 'Brand-Specific' }, { name: 'Localized' }] }, description: 'Type of query executed' },
         { name: 'query_text', type: 'multilineText', description: 'Actual query submitted' },
@@ -235,8 +236,8 @@ async function setupSchema() {
       'Priorities',
       'Action items identified from audits with status tracking',
       [
-        { name: 'priority_level', type: 'singleSelect', options: { choices: [{ name: 'Immediate', color: 'redBright' }, { name: 'Strategic', color: 'yellowBright' }, { name: 'Long-term', color: 'greenBright' }] }, description: 'Urgency level' },
         { name: 'title', type: 'singleLineText', description: 'Action title' },
+        { name: 'priority_level', type: 'singleSelect', options: { choices: [{ name: 'Immediate', color: 'redBright' }, { name: 'Strategic', color: 'yellowBright' }, { name: 'Long-term', color: 'greenBright' }] }, description: 'Urgency level' },
         { name: 'description', type: 'multilineText', description: 'Full description of action needed' },
         { name: 'impact', type: 'singleSelect', options: { choices: [{ name: 'High', color: 'redBright' }, { name: 'Medium', color: 'yellowBright' }, { name: 'Low', color: 'greenBright' }] }, description: 'Expected impact' },
         { name: 'effort', type: 'singleSelect', options: { choices: [{ name: 'High', color: 'redBright' }, { name: 'Medium', color: 'yellowBright' }, { name: 'Low', color: 'greenBright' }] }, description: 'Estimated effort' },
@@ -270,11 +271,11 @@ async function setupSchema() {
     console.log('\n✅ AIRTABLE SCHEMA SETUP COMPLETE\n');
     console.log('Tables Created:');
     console.log('1. ✓ Audit_Runs (20 fields) - Main audit records');
-    console.log('2. ✓ Trust_Nodes (8 fields) - Trust node tracking');
+    console.log('2. ✓ Trust_Nodes (7 fields) - Trust node tracking');
     console.log('3. ✓ Citations (15 fields) - Citation quality');
-    console.log('4. ✓ LLM_Responses (15 fields) - Platform responses');
-    console.log('5. ✓ Priorities (12 fields) - Action items\n');
-    console.log('Total Fields: 70');
+    console.log('4. ✓ LLM_Responses (16 fields) - Platform responses');
+    console.log('5. ✓ Priorities (11 fields) - Action items\n');
+    console.log('Total Fields: 69');
     console.log('Relationships: All tables linked to Audit_Runs\n');
     console.log('Schema ready for:');
     console.log('- Data persistence from audit agent');

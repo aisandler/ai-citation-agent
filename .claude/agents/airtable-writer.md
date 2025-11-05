@@ -46,8 +46,8 @@ You receive a complete JSON payload from the audit orchestrator:
   },
   "trust_nodes": [
     {
-      "category": "Knowledge Graph" | "Review Platform" | "Directory" | "Company Profile" | "News & PR" | "Seed Site",
       "node_name": "string",
+      "category": "Knowledge Graph" | "Review Platform" | "Directory" | "Company Profile" | "News & PR" | "Seed Site",
       "present": boolean,
       "quality_score": null | number,
       "last_updated": null | "YYYY-MM-DD",
@@ -75,6 +75,7 @@ You receive a complete JSON payload from the audit orchestrator:
   ],
   "llm_responses": [
     {
+      "query_id": "string",
       "platform": "Perplexity" | "ChatGPT" | "Gemini",
       "query_type": "Evaluative" | "Comparative" | "Brand-Specific" | "Localized",
       "query_text": "string",
@@ -93,8 +94,8 @@ You receive a complete JSON payload from the audit orchestrator:
   ],
   "priorities": [
     {
-      "priority_level": "Immediate" | "Strategic" | "Long-term",
       "title": "string",
+      "priority_level": "Immediate" | "Strategic" | "Long-term",
       "description": "string",
       "impact": "High" | "Medium" | "Low",
       "effort": "High" | "Medium" | "Low",
@@ -222,8 +223,8 @@ Batch create trust node records (max 10 per batch):
 for (let i = 0; i < trustNodes.length; i += 10) {
   const batch = trustNodes.slice(i, i + 10).map(node => ({
     fields: {
-      category: node.category,
       node_name: node.node_name,
+      category: node.category,
       present: node.present,
       quality_score: node.quality_score,
       last_updated: node.last_updated,
@@ -276,6 +277,7 @@ Create all LLM response records:
 ```javascript
 const llmRecords = llmResponses.map(response => ({
   fields: {
+    query_id: response.query_id || `${response.platform}-${response.query_type}-${Date.now()}`,
     platform: response.platform,
     query_type: response.query_type,
     query_text: response.query_text,
@@ -304,8 +306,8 @@ Create all priority records:
 ```javascript
 const priorityRecords = priorities.map(priority => ({
   fields: {
-    priority_level: priority.priority_level,
     title: priority.title,
+    priority_level: priority.priority_level,
     description: priority.description,
     impact: priority.impact,
     effort: priority.effort,
