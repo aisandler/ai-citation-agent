@@ -6,10 +6,15 @@
  * WARNING: This will permanently delete all data in the tables!
  */
 
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
+import readline from 'readline';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Load environment variables
 const envPath = path.join(__dirname, '..', '.env.local');

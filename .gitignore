@@ -54,6 +54,8 @@ test-results/
 # Project specific
 *.md.swp
 content-drafts/
+scripts/archive/examples/*
+!scripts/archive/examples/.gitkeep
 
 # Output directory - track audit reports, ignore everything else
 output/*

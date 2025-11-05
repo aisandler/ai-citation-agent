@@ -27,7 +27,7 @@ envContent.split('\n').forEach(line => {
 });
 
 const AIRTABLE_API_KEY = envVars.AIRTABLE_API_KEY;
-const SOURCE_BASE_ID = 'appB9ECe1uBMCRcmr';
+const SOURCE_BASE_ID = 'appA35bf5yxTO2RkR';
 const MARKETING_TABLE_ID = 'tbl54tXqSbVbHfffp'; // "4_Marketing Presence"
 
 function makeRequest(method, path, data = null) {

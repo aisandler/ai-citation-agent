@@ -4,9 +4,19 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+📖 **[Setup Guide](SETUP.md)** | 🏗️ **[Architecture](CLAUDE.md)** | 📊 **[Example Audit](output/jasper-audit-report-2025-10-29.md)**
+
 ## Overview
 
 The AI Citation Agent implements a comprehensive methodology for understanding how AI platforms (like Perplexity, ChatGPT, and Gemini) cite and rank brands. Based on the AI SEO Optimization Framework from [aiclicks.io](http://aiclicks.io), this system provides actionable intelligence for improving brand visibility in AI-powered search.
+
+## ⚡ First Time Setup
+
+**New to this project?** Start with the [Setup Guide](SETUP.md) for complete installation instructions including:
+- Environment configuration (`.env.local`)
+- Airtable schema setup
+- MCP server configuration
+- Running your first audit
 
 ## 🎯 What It Does
 

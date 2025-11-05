@@ -21,7 +21,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, '..', '.env.local') });
 
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
-const SOURCE_BASE_ID = 'appB9ECe1uBMCRcmr'; // Competitive intelligence base
+const SOURCE_BASE_ID = 'appA35bf5yxTO2RkR'; // Competitive intelligence base
 const AUDIT_BASE_ID = 'appXQsoTkWGPqwaOx'; // Detailed audit base
 
 const MARKETING_TABLE = '4_Marketing Presence';
