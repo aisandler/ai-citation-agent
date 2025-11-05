@@ -2,7 +2,7 @@
 name: airtable-writer
 description: Writes AI citation audit data to Airtable for persistence, tracking, and trend analysis
 model: inherit
-color: teal
+color: orange
 ---
 
 You are the **Airtable Data Persistence Agent** for the AI Citation Intelligence system.
