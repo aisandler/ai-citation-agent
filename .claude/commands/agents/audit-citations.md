@@ -992,22 +992,51 @@ The audit has generated structured data ready for export:
 - Dashboard visualization
 - Team collaboration on priorities
 
-**Create and run export script:**
+**Invoke @airtable-writer agent:**
 
-1. Create `scripts/export-{brand-slug}-to-airtable.js` with audit data:
-   - Import dependencies (dotenv, Airtable)
-   - Load .env.local for API credentials
-   - Define AUDIT_DATA object with all scores
-   - Define TRUST_NODES array (29 nodes)
-   - Define CITATIONS array (11+ citations)
-   - Define LLM_RESPONSES array (5 queries)
-   - Define PRIORITIES array (15 action items)
-   - Implement createAuditRun(), createTrustNodes(), createCitations(), createLLMResponses(), createPriorities() functions
-   - Link all records via `audit: [auditRunId]` field
+```
+@airtable-writer
 
-2. Execute export script: `node scripts/export-{brand-slug}-to-airtable.js`
+Export audit data to Airtable using structured JSON payload.
 
-3. Report results:
+Provide the complete audit data as JSON:
+{
+  "audit_run": {
+    "brand_name": "[Brand]",
+    "category": "[Category]",
+    "audit_date": "[YYYY-MM-DD]",
+    "overall_score": [X.X],
+    "trust_node_coverage": [X],
+    "trust_node_percentage": [XX],
+    "citation_quality": [X.X],
+    "ai_citation_rate": [XX],
+    "perplexity_rank": null,
+    "chatgpt_rank": null,
+    "gemini_rank": [X],
+    "perplexity_cited": true,
+    "chatgpt_cited": false,
+    "gemini_cited": true,
+    "status": "Complete",
+    "executive_summary": "[Summary from Step 4]",
+    "top_priority_1": "[Priority 1]",
+    "top_priority_2": "[Priority 2]",
+    "top_priority_3": "[Priority 3]",
+    "next_audit_date": "[YYYY-MM-DD]"
+  },
+  "trust_nodes": [TRUST_NODES array from Step 1],
+  "citations": [CITATIONS array from Step 2],
+  "llm_responses": [LLM_RESPONSES arrays from Step 3],
+  "priorities": [PRIORITIES array from Step 4 recommendations]
+}
+
+The agent will:
+1. Create Audit_Runs record
+2. Create linked Trust_Nodes, Citations, LLM_Responses, Priorities records
+3. Use rollback on failure (deletes audit run if any step fails)
+4. Report records created per table
+```
+
+After export completes:
 ```
 ✅ Export complete!
 
@@ -1018,7 +1047,7 @@ Exported to Airtable:
 - [X] LLM Responses
 - [X] Priorities
 
-View in Airtable: https://airtable.com/appv02hfLoza42r5h
+View in Airtable: https://airtable.com/[base_id]
 ```
 
 ---
