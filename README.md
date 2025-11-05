@@ -251,25 +251,42 @@ Action items with impact/effort assessment and status tracking.
 
 ### Setup
 
-#### 1. Create Airtable Base
+#### 1. Configure Credentials
 
-The schema is already defined in `.env.local`:
-```
-AIRTABLE_BASE_ID=appXQsoTkWGPqwaOx
-AIRTABLE_API_KEY=patWZs...
+Create `.env.local` in the project root:
+
+```bash
+AIRTABLE_API_KEY=your_api_key_here
+AIRTABLE_BASE_ID=appXXXXXXXXXXXXXX
 ```
 
-To create/recreate the schema:
+**Get your credentials:**
+- API Key: https://airtable.com/create/tokens (grant schema and data scopes)
+- Base ID: From your base URL (https://airtable.com/appXXX...)
+
+#### 2. Create Airtable Schema
+
+**Recommended: Use the agent (automatic credential checking)**
+
+```bash
+/agents:setup-airtable
+```
+
+The agent will:
+- ✅ Automatically check for credentials in `.env.local`
+- ✅ Only prompt you if credentials are missing
+- ✅ Create all 5 tables with proper field types and relationships
+- ✅ Provide detailed setup instructions if credentials aren't configured
+
+**Alternative: Run script manually**
 
 ```bash
 node scripts/setup-airtable-schema.js
 ```
 
-This creates all 5 tables with proper field types and relationships.
+#### 3. Verify Connection (Optional)
 
-#### 2. Test Connection
-
-Verify your Airtable credentials:
+Test your Airtable credentials:
 
 ```bash
 node scripts/test-airtable-connection.js
@@ -386,7 +403,7 @@ MIT License - see LICENSE file for details
 
 ---
 
-**⚠️ Note:** This README is actively maintained. Last updated: October 28, 2025
+**⚠️ Note:** This README is actively maintained. Last updated: November 5, 2025
 
 **TODO:**
 - [ ] Add installation instructions
