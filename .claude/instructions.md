@@ -39,7 +39,6 @@ Available specialized agents:
 - **chatgpt-citation-checker** - Browser automation for ChatGPT
 - **gemini-citation-checker** - Browser automation for Gemini
 - **airtable-writer** - Persists audit data across 5 Airtable tables
-- **content-analyzer-seo** - SEO framework evaluation
 
 Available skills:
 - **playwright-cleanup** - Prevents/resolves browser automation issues

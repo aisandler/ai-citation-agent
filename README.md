@@ -110,6 +110,33 @@ Prevents and resolves the "endless browser tabs" issue that occurs with Playwrig
 #### `skill-creator`
 Toolkit for creating new skills following best practices.
 
+#### `dashboard-builder`
+Transforms audit markdown reports into interactive Next.js dashboards deployed to Vercel.
+
+**What it does:**
+- Parses audit reports into structured JSON
+- Builds production-optimized Next.js dashboard
+- Deploys to Vercel with one command
+- Returns shareable dashboard URL
+- Can also run locally for development
+
+**Features:**
+- Trust Node Radar Chart (6 categories)
+- Citation Quality Scorecard (5 dimensions)
+- LLM Rankings Table (3 platforms)
+- Priority Timeline (strategic roadmap)
+
+**Usage:**
+After completing an audit, the orchestrator automatically prompts you to deploy the dashboard. You can also access it via:
+```bash
+# From the manage menu
+/agents:audit-citations
+# Then type: manage
+# Select option 1 or 5
+```
+
+**Requirements:** Vercel account for deployment (free tier works)
+
 ## 🏗️ Project Structure
 
 ```

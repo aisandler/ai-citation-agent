@@ -182,6 +182,59 @@ The audit takes ~8-10 minutes and generates:
 - Markdown report in `output/[brand]-audit-report-[date].md`
 - Data exported to Airtable (if you opt-in at the end)
 
+## Step 6: Dashboard Setup (Optional)
+
+The AI Citation Agent includes an interactive dashboard for visualizing audit results. After completing an audit, you'll be prompted to deploy or run the dashboard.
+
+### Dashboard Features
+
+- **Trust Node Radar Chart** - Visual representation across 6 categories
+- **Citation Quality Scorecard** - 5-dimension scoring breakdown
+- **LLM Rankings Table** - Performance across 3 platforms
+- **Priority Timeline** - Strategic roadmap visualization
+
+### Deployment Options
+
+**Option 1: Deploy to Vercel (Production)**
+
+After an audit completes, select "Deploy to Vercel" when prompted. The dashboard-builder skill will:
+1. Transform your audit report into structured JSON
+2. Build a production-optimized Next.js application
+3. Deploy to Vercel with a shareable URL
+
+**First-time setup:**
+- Create a free Vercel account at https://vercel.com/signup
+- Install Vercel CLI: `npm install -g vercel`
+- Run `vercel login` to authenticate
+- The dashboard-builder will guide you through linking your project
+
+**Option 2: Run Locally (Development)**
+
+For testing or development:
+```bash
+# After audit completes, select "Run locally"
+# Dashboard will start at http://localhost:3000
+```
+
+### Managing Existing Reports
+
+You can deploy dashboards for past audits:
+
+```bash
+/agents:audit-citations
+# Type: manage
+# Select Option 1 (Deploy to Vercel) or Option 5 (Run locally)
+# Choose which audit report to visualize
+```
+
+### Dashboard Requirements
+
+- **Node.js** 18+ (already installed from Step 1)
+- **Vercel account** (free tier works) - only needed for deployment
+- **Dashboard dependencies** (already installed from Step 1)
+
+The dashboard is built with Next.js 14, React 18, Tailwind CSS, and Recharts for data visualization.
+
 ## Troubleshooting
 
 ### "Endless browser tabs" issue

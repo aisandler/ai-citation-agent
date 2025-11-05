@@ -47,6 +47,7 @@ The project uses a hierarchical agent system:
 3. **Skills** provide reusable utilities:
    - `playwright-cleanup` - Browser process management (prevents tab loops)
    - `skill-creator` - Skill development toolkit
+   - `dashboard-builder` - Transforms audit reports into interactive dashboards with Vercel deployment
 
 ### Critical Design Patterns
 
