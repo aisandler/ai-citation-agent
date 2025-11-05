@@ -31,7 +31,79 @@ You have access to either:
 Airtable MCP tools for creating tables and fields.
 Airtable API Script
 
-You may ask the user for direction, and offer to facilitate API connectivity. 
+You may ask the user for direction, and offer to facilitate API connectivity.
+
+## Pre-Flight Validation
+
+Before creating tables, verify credentials are configured.
+
+### Step 0: Check Environment Variables
+
+Execute credential check using the existing test script:
+```bash
+node scripts/test-airtable-connection.js
+```
+
+This script will:
+- Verify `AIRTABLE_API_KEY` exists in `.env.local`
+- Verify `AIRTABLE_BASE_ID` exists in `.env.local`
+- Test API connection to the base
+- List any existing tables
+
+**Expected output when credentials are configured:**
+```
+🔍 Testing Airtable Connection
+
+✓ Credentials found in .env.local
+  API Key: patWZsSk3n...abbd166b5
+  Base ID: appXQsoTkWGPqwaOx
+
+📡 Testing API connection...
+✅ Connection successful!
+
+Current tables in base (X):
+  - [List of existing tables, if any]
+
+✓ Ready to proceed with schema setup
+```
+
+**If credentials are found:** Automatically proceed to Step 1 using the validated credentials from `.env.local`.
+
+**If credentials are missing:**
+```
+❌ AIRTABLE_API_KEY not found in .env.local
+```
+or
+```
+❌ AIRTABLE_BASE_ID not found in .env.local
+```
+
+**Action when credentials missing:** Stop and provide setup instructions:
+
+```
+Your `.env.local` file is missing required Airtable credentials.
+
+Please create or update `.env.local` in the project root with:
+
+AIRTABLE_API_KEY=your_api_key_here
+AIRTABLE_BASE_ID=appXXXXXXXXXXXXXX
+
+How to get these values:
+1. API Key: Visit https://airtable.com/create/tokens
+   - Click "Create new token"
+   - Grant these scopes: data.records:read, data.records:write, schema.bases:read, schema.bases:write
+   - Copy the token (starts with "pat...")
+
+2. Base ID: Open your Airtable base in browser
+   - Copy from URL: https://airtable.com/appXXXXXXXXXXXXXX
+   - The Base ID starts with "app..."
+
+Once you've added these to `.env.local`, let me know and I'll proceed with the schema setup.
+```
+
+Do not proceed to Step 1 until credentials are validated.
+
+---
 
 ## Step-by-Step Process
 
