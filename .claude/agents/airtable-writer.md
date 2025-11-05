@@ -119,6 +119,14 @@ You receive a complete JSON payload from the audit orchestrator:
 - `AIRTABLE_API_KEY` - Available as environment variable
 - `AIRTABLE_BASE_ID` - Default: `appXQsoTkWGPqwaOx`
 
+**PRE-FLIGHT CHECK:** Before writing any data, verify the schema matches expectations:
+
+```bash
+node scripts/verify-citations-schema.js
+```
+
+This checks if all required fields exist, especially `source_type` which may be missing in older bases.
+
 **Execution Strategy:**
 
 1. **Write a complete Node.js script** to `scripts/export-[brand-slug]-to-airtable.js`
@@ -412,24 +420,83 @@ Before writing, validate:
 
 **If validation fails:** Report errors clearly, do NOT write partial data.
 
+## Rollback on Failure
+
+**CRITICAL:** If any step fails after creating the Audit_Runs record, DELETE the audit run and all linked records to prevent orphaned data.
+
+```javascript
+let auditId = null;
+
+try {
+  // Step 1: Create audit run
+  const auditRecord = await base('Audit_Runs').create([{ fields: {...} }]);
+  auditId = auditRecord[0].id;
+
+  // Steps 2-5: Create linked records
+  await createTrustNodes(auditId);
+  await createCitations(auditId);
+  await createLLMResponses(auditId);
+  await createPriorities(auditId);
+
+  console.log('✅ Export successful');
+
+} catch (error) {
+  console.error('❌ Export failed:', error.message);
+
+  // ROLLBACK: Delete the audit run (cascade deletes linked records)
+  if (auditId) {
+    console.log('🔄 Rolling back...');
+    try {
+      await base('Audit_Runs').destroy([auditId]);
+      console.log('✓ Rollback complete - orphaned records cleaned up');
+    } catch (rollbackError) {
+      console.error('⚠️ Rollback failed:', rollbackError.message);
+      console.log(`Manual cleanup needed for audit ID: ${auditId}`);
+    }
+  }
+
+  throw error; // Re-throw to notify orchestrator
+}
+```
+
 ## Best Practices
 
 1. **Use batch operations** when creating multiple records (up to 10 per batch)
 2. **Link records immediately** when creating (include audit field)
-3. **Capture record IDs** for potential rollback/cleanup
+3. **Capture audit ID** for rollback if later steps fail
 4. **Report progress** as you create each table's records
 5. **Handle nulls gracefully** - Airtable accepts null for optional fields
 6. **Preserve data fidelity** - Don't transform or clean data, write as-is
+7. **Always use rollback pattern** - Clean up on failure
 
 ## Field Name Mapping
 
-Airtable uses snake_case field names matching the JSON payload keys exactly:
+**CRITICAL:** Field names must match the Airtable schema EXACTLY. Common mistakes:
 
-- `brand_name` → `brand_name` ✓
-- `overallScore` → `overall_score` (convert camelCase if needed)
-- `trustNodeCoverage` → `trust_node_coverage` (convert camelCase if needed)
+❌ **WRONG** (missing `_score` suffix):
+- `authority` → Should be `authority_score`
+- `data_structure` → Should be `data_structure_score`
+- `brand_alignment` → Should be `brand_alignment_score`
+- `freshness` → Should be `freshness_score`
+- `cross_links` → Should be `cross_link_score`
+- `composite_score` → Should be `overall_quality`
 
-**No transformation needed** if agents output snake_case JSON already.
+✅ **CORRECT** (matches Airtable schema):
+```javascript
+{
+  authority_score: 9.0,
+  data_structure_score: 8.9,
+  brand_alignment_score: 9.3,
+  freshness_score: 7.1,
+  cross_link_score: 7.8,
+  overall_quality: 8.5
+}
+```
+
+**Verify field names** before creating export script:
+1. Check `scripts/setup-airtable-schema.js` for exact field names
+2. Run `node scripts/verify-citations-schema.js` to confirm schema
+3. Match your export data structure to the schema EXACTLY
 
 ---
 

@@ -200,7 +200,14 @@ If browser agents spawn infinite tabs:
 
 ### Airtable schema errors
 
-If you need to recreate the schema:
+**Verify your schema is correct:**
+```bash
+node scripts/verify-citations-schema.js
+```
+
+This checks if all required fields exist, especially `source_type` which may be missing in older bases.
+
+**If you need to recreate the schema:**
 
 1. Delete existing tables:
    ```bash
@@ -212,6 +219,16 @@ If you need to recreate the schema:
    ```bash
    node scripts/setup-airtable-schema.js
    ```
+
+### Cleanup incomplete audits
+
+If failed exports left orphaned records:
+
+```bash
+node scripts/cleanup-incomplete-audits.js
+```
+
+This removes Audit_Runs with no linked Citations/LLM_Responses/Priorities.
 
 ### Agent invocation errors
 
