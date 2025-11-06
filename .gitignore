@@ -57,10 +57,12 @@ content-drafts/
 scripts/archive/examples/*
 !scripts/archive/examples/.gitkeep
 
-# Output directory - track audit reports, ignore everything else
+# Output directory - ignore all research/audit data
 output/*
-!output/*-audit-report-*.md
 !output/.gitkeep
+
+# Dashboard audit data - ignore generated audit data
+.claude/dashboard/public/data/audit-data.json
 
 # Scripts - ignore per-brand export scripts (generated during debugging)
 scripts/export-*-to-airtable.js

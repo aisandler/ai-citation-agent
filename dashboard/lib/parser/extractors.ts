@@ -73,21 +73,29 @@ export function extractTrustNodeCoverage(
   const tableSection = coverageMatch[4];
 
   // Parse category table
+  // Handle both formats:
+  // Format 1: | Category | 2.5/3 | Status |
+  // Format 2: | Category | 1/5 (20%) | Status |
   const categoryRows = tableSection.match(
-    /\|\s*([^|]+)\s*\|\s*([\d.]+)\/(\d+)\s*\|\s*([^|]+)\s*\|/g
+    /\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|/g
   );
 
   const categories = (categoryRows || [])
     .slice(1) // Skip header row
     .map((row) => {
       const match = row.match(
-        /\|\s*([^|]+)\s*\|\s*([\d.]+)\/(\d+)\s*\|\s*([^|]+)\s*\|/
+        /\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|/
       );
       if (!match) return null;
 
-      const [, name, cov, tot, status] = match;
-      const coverage = parseFloat(cov);
-      const total = parseInt(tot);
+      const [, name, coverageText, status] = match;
+
+      // Extract coverage and total from formats like "2.5/3" or "1/5 (20%)"
+      const coverageMatch = coverageText.trim().match(/([\d.]+)\/([\d.]+)/);
+      if (!coverageMatch) return null;
+
+      const coverage = parseFloat(coverageMatch[1]);
+      const total = parseFloat(coverageMatch[2]);
       const statusText = status.trim().replace(/✓\s*/, '');
 
       return {
@@ -388,16 +396,18 @@ export function extractPriorities(markdown: string): Priorities {
   };
 
   // Extract immediate priorities
+  // Handle both "(This Month)" and "(Next 30 Days)" formats
   const immediateMatch = content.match(
-    /### 🔴 IMMEDIATE PRIORITIES \(This Month\)([\s\S]*?)(?=### 🟡|$)/
+    /### 🔴 IMMEDIATE PRIORITIES.*?\n([\s\S]*?)(?=### 🟡|$)/
   );
   const immediate = immediateMatch
     ? parsePrioritySection(immediateMatch[1], 'Immediate')
     : [];
 
   // Extract strategic initiatives
+  // Handle both "(This Quarter)" and "(Next 90 Days)" formats
   const strategicMatch = content.match(
-    /### 🟡 STRATEGIC INITIATIVES \(This Quarter\)([\s\S]*?)(?=### 🟢|$)/
+    /### 🟡 STRATEGIC INITIATIVES.*?\n([\s\S]*?)(?=### 🟢|$)/
   );
   const strategic = strategicMatch
     ? parsePrioritySection(strategicMatch[1], 'Strategic')
@@ -405,7 +415,7 @@ export function extractPriorities(markdown: string): Priorities {
 
   // Extract long-term vision
   const longTermMatch = content.match(
-    /### 🟢 LONG-TERM VISION \(6-12 Months\)([\s\S]*?)$/
+    /### 🟢 LONG-TERM VISION.*?\n([\s\S]*?)$/
   );
   const longTerm = longTermMatch
     ? parsePrioritySection(longTermMatch[1], 'Long-term')
