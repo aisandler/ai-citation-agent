@@ -353,16 +353,25 @@ export function extractPriorities(markdown: string): Priorities {
   const parsePrioritySection = (section: string, level: 'Immediate' | 'Strategic' | 'Long-term') => {
     const priorities = [];
     const priorityMatches = section.matchAll(
-      /\*\*Priority \d+:\s*([^*]+)\*\*[\s\S]*?-\s*\*\*Current status:\*\*\s*([^\n]+)[\s\S]*?-\s*\*\*Impact:\*\*\s*([^\n]+)[\s\S]*?-\s*\*\*Action:\*\*\s*([\s\S]*?)(?:-\s*\*\*Success metric:|$)/g
+      /\*\*Priority \d+:\s*([^*]+)\*\*[\s\S]*?-\s*(?:\*\*)?Current status:(?:\*\*)?\s*([^\n]+)[\s\S]*?-\s*(?:\*\*)?Impact:(?:\*\*)?\s*([^\n]+)[\s\S]*?-\s*(?:\*\*)?Action:(?:\*\*)?\s*([\s\S]*?)(?:-\s*(?:\*\*)?Success metric:|-\s*(?:\*\*)?Timeline:|$)/g
     );
 
     for (const match of priorityMatches) {
-      const action = match[4].trim().split('\n').filter(line => line.trim()).join(' ');
+      const fullText = match[0];
+      const action = match[4].trim().split('\n').filter(line => line.trim() && !line.includes('Success metric') && !line.includes('Timeline')).join(' ');
 
       const impactText = match[3].trim();
       const impact: 'High' | 'Medium' | 'Low' =
         impactText.includes('High') ? 'High' :
         impactText.includes('Medium') ? 'Medium' : 'Low';
+
+      // Extract timeline if present
+      const timelineMatch = fullText.match(/-\s*(?:\*\*)?Timeline:(?:\*\*)?\s*([^\n]+)/);
+      const timeline = timelineMatch ? timelineMatch[1].trim() : undefined;
+
+      // Extract success metric if present
+      const successMetricMatch = fullText.match(/-\s*(?:\*\*)?Success metric:(?:\*\*)?\s*([^\n]+)/);
+      const successMetric = successMetricMatch ? successMetricMatch[1].trim() : undefined;
 
       priorities.push({
         level,
@@ -370,6 +379,8 @@ export function extractPriorities(markdown: string): Priorities {
         currentStatus: match[2].trim(),
         impact,
         action,
+        timeline,
+        successMetric,
       });
     }
 
