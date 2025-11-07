@@ -658,6 +658,21 @@ All platforms evaluated. Moving to synthesis...
 ---
 
 ## STEP 4: Dashboard Synthesis
+
+**BEFORE synthesizing, set up TodoWrite to track remaining workflow:**
+
+Use TodoWrite to create pending tasks:
+```
+- Step 4: Dashboard Synthesis [in_progress]
+- Save audit report to output/ [pending]
+- Export to Airtable automatically [pending]
+- Offer dashboard deployment options [pending]
+```
+
+This ensures you won't forget the automatic continuation steps after synthesis.
+
+---
+
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📊 STEP 4: DASHBOARD SYNTHESIS
@@ -947,7 +962,23 @@ Strategy:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-## SAVE AUDIT REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ AUTOMATIC CONTINUATION ZONE - DO NOT PAUSE FOR USER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**CRITICAL: You MUST complete these 3 actions sequentially WITHOUT stopping:**
+
+1. ✅ **SAVE AUDIT REPORT** (use Write tool - required)
+2. ✅ **EXPORT TO AIRTABLE** (invoke @airtable-writer - automatic, no user confirmation)
+3. ✅ **OFFER DASHBOARD OPTIONS** (present menu to user)
+
+**DO NOT output any text to user until all 3 actions are complete.**
+
+**Before proceeding, verify your TodoWrite list shows these as pending. If not, update it now.**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## ACTION 1: SAVE AUDIT REPORT
 
 **REQUIRED:** Save the complete audit report as a markdown file for downstream processing.
 
@@ -974,9 +1005,11 @@ output/{brand-name}-audit-report-{YYYY-MM-DD}.md
 ✅ Audit report saved: output/{brand-name}-audit-report-{date}.md
 ```
 
+Mark "Save audit report" as completed in TodoWrite, then immediately proceed to Action 2.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-## AUDIT DATA EXPORT
+## ACTION 2: EXPORT TO AIRTABLE
 
 **IMPORTANT: Proceed automatically - DO NOT ask user for confirmation.**
 
@@ -1062,11 +1095,26 @@ Records created:
 View in Airtable: https://airtable.com/[base_id]
 ```
 
-**Proceed immediately to Dashboard Deployment section (no pause).**
+Mark "Export to Airtable" as completed in TodoWrite, then immediately proceed to Action 3.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## ✅ CONTINUATION CHECKLIST
+
+**Before presenting dashboard options to user, verify ALL completed:**
+
+- [✅] Audit report saved to output/ directory (Write tool used)
+- [✅] @airtable-writer invoked with complete JSON payload
+- [✅] Airtable export confirmed successful (received record IDs)
+- [✅] TodoWrite updated with both actions marked completed
+
+**If ANY checkbox is unchecked, STOP and complete that step NOW before proceeding.**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ---
 
-## DASHBOARD DEPLOYMENT
+## ACTION 3: DASHBOARD DEPLOYMENT
 
 **Now offer dashboard deployment options to the user:**
 
