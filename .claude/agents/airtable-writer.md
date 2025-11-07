@@ -184,6 +184,48 @@ This checks if all required fields exist, especially `source_type` which may be 
 - Users should create their own `.env.local` file with: `AIRTABLE_API_KEY=your_key_here`
 - No code changes needed when sharing repo - just add your own `.env.local`
 
+### Step 0: Duplicate Detection (CRITICAL - Prevents Orphaned Records)
+
+**BEFORE creating any records, check if this audit already exists:**
+
+```javascript
+// Check for existing audit with same brand + date
+console.log('Step 0: Checking for existing audit...');
+const existingAudits = await base('Audit_Runs')
+  .select({
+    filterByFormula: `AND({brand_name} = '${auditData.audit_run.brand_name}', {audit_date} = '${auditData.audit_run.audit_date}')`,
+    maxRecords: 1
+  })
+  .firstPage();
+
+if (existingAudits.length > 0) {
+  const existingAudit = existingAudits[0];
+  console.log(`⚠️  Audit already exists for ${auditData.audit_run.brand_name} on ${auditData.audit_run.audit_date}`);
+  console.log(`   Existing audit ID: ${existingAudit.id}`);
+  console.log(`   Status: ${existingAudit.fields.status}`);
+  console.log('\n❌ DUPLICATE DETECTED - Aborting export to prevent orphaned records.');
+  console.log('\nOptions:');
+  console.log('1. Delete the existing audit first (if it was a failed test run)');
+  console.log('2. Change the audit_date in your data');
+  console.log('3. Manually inspect and clean up the existing audit\n');
+  process.exit(1);
+}
+
+console.log('✓ No duplicate found, proceeding with export\n');
+```
+
+**Why this matters:**
+- Without this check, running the script twice creates **orphaned trust nodes** (records with no audit link)
+- This causes "duplicate" records to appear in Airtable views
+- The rollback mechanism can't clean up orphans from a previous successful run
+
+**When duplicates are OK:**
+- Different dates: `brand_name="flowers.com", audit_date="2025-11-06"` vs `audit_date="2025-12-06"` ✅
+- Different brands: `brand_name="flowers.com"` vs `brand_name="ftd.com"` ✅
+
+**When to abort:**
+- Same brand + same date = DUPLICATE ❌
+
 ### Step 1: Create Main Audit Record
 
 Use Airtable REST API to create Audit_Runs record via Bash tool executing Node.js:
