@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "brand": "Jasper",
-    "category": "AI writing and marketing tools",
-    "date": "October 29, 2025",
-    "transformedAt": "2025-10-30T04:26:19.083Z"
+    "brand": "beehiiv",
+    "category": "email CRM and Newsletter platforms",
+    "date": "November 7, 2025",
+    "transformedAt": "2025-11-07T19:55:29.889Z"
   },
   "summary": {
-    "overallScore": 8.6,
-    "trustNodeCoverage": 15,
-    "trustNodeTotal": 21,
-    "trustNodePercentage": 71.4,
-    "citationQuality": 8.8,
+    "overallScore": 8.8,
+    "trustNodeCoverage": 17,
+    "trustNodeTotal": 22,
+    "trustNodePercentage": 77,
+    "citationQuality": 8.6,
     "aiCitationRate": 100
   },
   "trustNodes": {
@@ -19,73 +19,73 @@
         "name": "Knowledge Graphs",
         "coverage": 0,
         "total": 3,
-        "status": "⚠️ **CRITICAL GAP**"
+        "status": "✗ CRITICAL GAP"
       },
       {
         "name": "Review Platforms",
         "coverage": 5,
         "total": 5,
-        "status": "✓ **EXCELLENT**"
+        "status": "✓ STRONG"
       },
       {
         "name": "Directories",
-        "coverage": 2,
+        "coverage": 3,
         "total": 4,
-        "status": "⚠️ **MODERATE**"
+        "status": "✓ GOOD"
       },
       {
         "name": "Company Profiles",
         "coverage": 3,
         "total": 3,
-        "status": "✓ **EXCELLENT**"
+        "status": "✓ STRONG"
       },
       {
         "name": "News & PR",
-        "coverage": 8,
-        "total": 10,
-        "status": "✓ **STRONG**"
+        "coverage": 1,
+        "total": 1,
+        "status": "✓ GOOD"
       },
       {
         "name": "Seed Sites",
-        "coverage": 4,
+        "coverage": 3,
         "total": 5,
-        "status": "✓ **STRONG**"
+        "status": "⚠️ MODERATE"
       }
     ],
     "overall": {
-      "coverage": 15,
-      "total": 21,
-      "percentage": 71.4
+      "coverage": 17,
+      "total": 22,
+      "percentage": 77
     }
   },
   "citationQuality": {
-    "overall": 8.8,
+    "overall": 8.6,
     "dimensions": {
-      "authority": 8.7,
-      "dataStructure": 8.9,
-      "brandAlignment": 9.5,
-      "freshness": 8.6,
-      "crossLinks": 8.4
+      "authority": 9,
+      "dataStructure": 8.7,
+      "brandAlignment": 9.3,
+      "freshness": 8.1,
+      "crossLinks": 7.9
     }
   },
   "llmRankings": [
     {
       "platform": "Perplexity",
       "cited": "✓",
-      "position": "#1 (comparative)",
+      "position": "#1",
       "citations": "24"
     },
     {
       "platform": "ChatGPT",
       "cited": "✓",
-      "position": "#1 (evaluative)",
-      "citations": "13"
+      "position": "#1",
+      "citations": "12"
     },
     {
       "platform": "Gemini",
       "cited": "✓",
-      "position": "#1 (evaluative)",
-      "citations": "0*"
+      "position": "#1 (category)",
+      "citations": "2"
     }
   ],
   "priorities": [
@@ -97,13 +97,13 @@
     },
     {
       "level": "Immediate",
-      "title": "Refresh TechCrunch & Target Forbes",
+      "title": "Implement Organization/Product Schema on beehiiv.com",
       "action": "",
       "timeline": ""
     },
     {
       "level": "Immediate",
-      "title": "Maintain 2025 Listicle Presence",
+      "title": "Update Outdated TechCrunch Coverage",
       "action": "",
       "timeline": ""
     }
