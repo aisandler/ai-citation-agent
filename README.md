@@ -4,6 +4,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**Created by Adam Sandler** | [Viable Edge](https://viableedge.com) | [@TheViableEdge](https://x.com/TheViableEdge) | [YouTube](https://youtube.com/@ViableEdge) | [LinkedIn](https://linkedin.com/in/adamsandler)
+
+---
+
 📖 **[Setup Guide](SETUP.md)** | 🏗️ **[Architecture](CLAUDE.md)** | 📊 **[Example Audit](output/jasper-audit-report-2025-10-29.md)**
 
 ## Overview
@@ -458,13 +462,29 @@ MIT License - see LICENSE file for details
 
 ## 🙏 Credits
 
-**Methodology:** Based on the AI SEO Optimization Framework from [aiclicks.io](http://aiclicks.io)
+### Created By
 
-**Built with:** [Claude Code](https://claude.com/claude-code)
+**Adam Sandler** - Founder of [Viable Edge](https://viableedge.com)
+
+Viable Edge helps businesses optimize their presence in AI-powered search and LLM platforms. This tool was built to provide actionable intelligence for the AI SEO era.
+
+**Connect:**
+- 🌐 Website: [viableedge.com](https://viableedge.com)
+- 𝕏 Twitter/X: [@TheViableEdge](https://x.com/TheViableEdge)
+- 📺 YouTube: [@ViableEdge](https://youtube.com/@ViableEdge)
+- 💼 LinkedIn: [Adam Sandler](https://linkedin.com/in/adamsandler)
+
+### Methodology
+
+Based on the AI SEO Optimization Framework from [aiclicks.io](http://aiclicks.io)
+
+### Built With
+
+[Claude Code](https://claude.com/claude-code)
 
 ---
 
-**⚠️ Note:** This README is actively maintained. Last updated: November 5, 2025
+**⚠️ Note:** This README is actively maintained. Last updated: November 7, 2025
 
 **TODO:**
 - [ ] Add installation instructions
